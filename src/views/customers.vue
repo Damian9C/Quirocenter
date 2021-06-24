@@ -57,6 +57,7 @@
 </template>
 
 <script>
+import Titles from "../components/titles";
 export default {
   name: "customers",
   components: {Titles},
