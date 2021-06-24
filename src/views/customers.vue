@@ -1,59 +1,61 @@
 <template>
   <div>
     <navigationbar/>
-    <titles principal-title="Clientes"/>
+    <div class="customerCmp">
+      <titles principal-title="Clientes"/>
 
-    <v-data-table
-        :headers="headers"
-        :items="desserts"
-        class="elevation-0"
-        :search="search"
-    >
-      <template v-slot:top>
+      <v-data-table
+          :headers="headers"
+          :items="desserts"
+          class="elevation-0"
+          :search="search"
+      >
+        <template v-slot:top>
 
-        <v-text-field
-            v-model="search"
-            label="Buscar"
-            class="mx-4"
-        ></v-text-field>
-        <v-divider/>
-      </template>
-      <template v-slot:item.actions="{ item }">
-        <v-btn
-            small
-            @click="$router.push(`/customer/${item.id}`)"
-        >
-          <v-icon>
-            mdi-eye
-          </v-icon>
-        </v-btn>
-        <v-btn
-            small
-            @click=""
-        >
-          <v-icon>
-            mdi-pencil
-          </v-icon>
-        </v-btn>
-        <v-btn
-            small
-            @click="deleteItem(item)"
-        >
-          <v-icon>
-            mdi-delete
-          </v-icon>
-        </v-btn>
-      </template>
-      <template v-slot:no-data>
-        <v-btn
-            color="primary"
-            @click="initialize"
-        >
-          Reset
-        </v-btn>
-      </template>
-    </v-data-table>
-    <br/><br/>
+          <v-text-field
+              v-model="search"
+              label="Buscar"
+              class="mx-4"
+          ></v-text-field>
+          <v-divider/>
+        </template>
+        <template v-slot:item.actions="{ item }">
+          <v-btn
+              small
+              @click="$router.push(`/customer/${item.id}`)"
+          >
+            <v-icon>
+              mdi-eye
+            </v-icon>
+          </v-btn>
+          <v-btn
+              small
+              @click=""
+          >
+            <v-icon>
+              mdi-pencil
+            </v-icon>
+          </v-btn>
+          <v-btn
+              small
+              @click="deleteItem(item)"
+          >
+            <v-icon>
+              mdi-delete
+            </v-icon>
+          </v-btn>
+        </template>
+        <template v-slot:no-data>
+          <v-btn
+              color="primary"
+              @click="initialize"
+          >
+            Reset
+          </v-btn>
+        </template>
+      </v-data-table>
+      <br/><br/>
+    </div>
   </div>
 </template>
 
@@ -267,5 +269,8 @@ export default {
 </script>
 
 <style scoped>
-
+.customerCmp{
+  width: 75%;
+  margin: 1rem 2% 5% 22%;
+}
 </style>
