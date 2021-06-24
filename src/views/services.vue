@@ -34,6 +34,8 @@
 <script>
 import Titles from "../components/titles";
 import Navigationbar from "../components/navigationbar";
+import { auth } from '../util/index'
+import { onMounted } from 'vue'
 export default {
   name: "services",
   components: {Navigationbar, Titles},
@@ -80,7 +82,12 @@ export default {
         precio: 518,
       },
     ]
-  })
+  }),
+  async mounted() {
+    await auth.onAuthStateChanged((user) => {
+      console.log(user)
+    })
+  }
 }
 </script>
 
