@@ -1,5 +1,6 @@
 <template>
   <div>
+    <navigationbar/>
     <titles principal-title="Citas"/>
     <div>
       <v-row class="fill-height">
@@ -137,9 +138,10 @@
 
 <script>
 import Titles from "../components/titles";
+import Navigationbar from "../components/navigationbar";
 export default {
   name: "quotes",
-  components: {Titles},
+  components: {Navigationbar, Titles},
   data: () => ({
     focus: '',
     type: 'month',

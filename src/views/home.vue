@@ -29,7 +29,7 @@
           color="#CFCFCF"
           elevation="1"
           medium
-          to="/Home"
+          to="/services"
       > Entrar </v-btn>
 
     </div>

@@ -1,5 +1,6 @@
 <template>
   <div>
+    <navigationbar/>
     <titles principal-title="Clientes"/>
 
     <v-data-table
@@ -58,9 +59,10 @@
 
 <script>
 import Titles from "../components/titles";
+import Navigationbar from "../components/navigationbar";
 export default {
   name: "customers",
-  components: {Titles},
+  components: {Navigationbar, Titles},
   data: () => ({
     dialog: false,
     dialogDelete: false,

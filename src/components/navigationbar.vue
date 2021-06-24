@@ -14,6 +14,7 @@
     <v-navigation-drawer
         absolute
         permanent
+        class="navigationDrawerCmp"
     >
       <v-list
           nav
