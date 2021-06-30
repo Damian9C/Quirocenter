@@ -53,6 +53,16 @@
             </v-list-item-content>
           </v-list-item>
 
+          <v-list-item to="/admin">
+            <v-list-item-icon>
+              <v-icon>mdi-cog-outline</v-icon>
+            </v-list-item-icon>
+
+            <v-list-item-content>
+              <v-list-item-title>Configuracion</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+
           <v-divider/><br/>
 
           <v-list-item @click="">

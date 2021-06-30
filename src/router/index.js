@@ -4,6 +4,7 @@ import home from '../views/home.vue'
 import customers from "../views/customers";
 import quotes from "../views/quotes";
 import services from "../views/services";
+import admin from "../views/admin";
 
 Vue.use(VueRouter)
 
@@ -27,6 +28,11 @@ const routes = [
     path: '/services',
     name: 'services',
     component: services
+  },
+  {
+    path: '/admin',
+    name: 'admin',
+    component: admin
   }
 ]
 
