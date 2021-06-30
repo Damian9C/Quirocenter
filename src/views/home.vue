@@ -4,9 +4,8 @@
       <h1 class="access__title">
         Quirocenter
       </h1>
-      <v-icon size="60">
-        mdi-account-circle
-      </v-icon>
+      <div class="img">
+      </div>
       <h2 style="font-size: 24px;" >iniciar sesion</h2>
       <br>
       <v-text-field
@@ -66,6 +65,17 @@ export default {
 
 .access__title{
   font-size: 48px;
+}
+
+.img{
+  background-image: url("../assets/brand.jpg");
+  border-radius: 50%;
+  width: 70px;
+  height: 70px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+
 }
 
 </style>
