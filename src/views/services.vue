@@ -3,7 +3,6 @@
     <navigationbar/>
     <div class="services__container">
       <titles principal-title="Servicios"/>
-
       <v-simple-table>
         <template v-slot:default>
           <thead>

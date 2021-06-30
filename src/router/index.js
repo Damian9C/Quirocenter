@@ -5,6 +5,7 @@ import customers from "../views/customers";
 import quotes from "../views/quotes";
 import services from "../views/services";
 import admin from "../views/admin";
+import role from "../views/role";
 
 Vue.use(VueRouter)
 
@@ -33,6 +34,11 @@ const routes = [
     path: '/admin',
     name: 'admin',
     component: admin
+  },
+  {
+    path: '/role',
+    name: 'role',
+    component: role
   }
 ]
 
