@@ -63,7 +63,7 @@ export default {
 <style scoped>
 .config{
   width: 75%;
-  margin: 1rem 2% 5% 22%;
+  margin: 1rem 2% 5% 23%;
 }
 .back{
   margin: 0.1rem 1% 5% 2%;

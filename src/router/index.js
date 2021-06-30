@@ -6,6 +6,7 @@ import quotes from "../views/quotes";
 import services from "../views/services";
 import admin from "../views/admin";
 import role from "../views/role";
+import editService from "../views/editService";
 
 Vue.use(VueRouter)
 
@@ -39,6 +40,11 @@ const routes = [
     path: '/role',
     name: 'role',
     component: role
+  },
+  {
+    path: '/editService',
+    name: 'editService',
+    component: editService
   }
 ]
 
