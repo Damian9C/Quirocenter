@@ -6,19 +6,11 @@
       </h1>
       <div class="img">
       </div>
-      <h2 style="font-size: 24px;" >iniciar sesion</h2>
+      <h2 style="font-size: 24px;" >Para recuperar contraseña ingresa tu correo</h2>
       <br>
       <v-text-field
-          label="Username"
-          placeholder="username"
-          rounded
-          background-color="#CFCFCF"
-          dense
-          outlined
-      ></v-text-field>
-      <v-text-field
-          label="Password"
-          placeholder="password"
+          label="Email"
+          placeholder="email"
           rounded
           background-color="#CFCFCF"
           dense
@@ -28,11 +20,8 @@
           color="#CFCFCF"
           elevation="1"
           medium
-          to="/services"
-      > Entrar </v-btn>
-      <div class="login">
-        <p>Lost your password? <a @click="$router.push(`/forgotPass`)">clic here</a></p>
-      </div>
+          to=" "
+      > Enviar </v-btn>
 
     </div>
   </div>
@@ -40,12 +29,11 @@
 
 <script>
 export default {
-  name: "home"
+  name: "forgotPass"
 }
 </script>
 
 <style scoped>
-
 .window{
   background-color: #2EABC7;
   display: flex;
@@ -79,16 +67,4 @@ export default {
   background-position: center;
   background-size: cover;
 }
-
-.login{
-  padding-top: 2rem;
-  display: flex;
-  align-items: center;
-}
-
-.login p{
-  font-size: smaller;
-  color: dimgrey;
-}
-
 </style>

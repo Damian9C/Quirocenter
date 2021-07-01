@@ -7,6 +7,7 @@ import services from "../views/services";
 import admin from "../views/admin";
 import role from "../views/role";
 import editService from "../views/editService";
+import forgotPass from "../views/forgotPass";
 
 Vue.use(VueRouter)
 
@@ -45,6 +46,11 @@ const routes = [
     path: '/editService',
     name: 'editService',
     component: editService
+  },
+  {
+    path: '/forgotPass',
+    name: 'forgotPass',
+    component: forgotPass
   }
 ]
 

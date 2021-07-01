@@ -15,6 +15,9 @@
               Roles
             </th>
             <th>
+              Correos
+            </th>
+            <th>
               Acciones
             </th>
           </tr>
@@ -26,6 +29,7 @@
           >
             <td>{{ item.name }}</td>
             <td>{{ item.rol }}</td>
+            <td>{{ item.email }}</td>
             <td><v-icon @click="$router.push(`/admin`)"> mdi-dots-vertical </v-icon></td>
           </tr>
           </tbody>
@@ -47,14 +51,17 @@ export default {
       {
         name: 'Dra. Fernanda',
         rol: 'administrador',
+        email: 'admin@gmail.com'
       },
       {
         name: 'Dr. erick',
         rol: 'doctor',
+        email: 'doctor@gmail.com'
       },
       {
         name: 'Eclair',
         rol: 'asistente',
+        email: 'asistente@gmail.com'
       }]
   })
 }
