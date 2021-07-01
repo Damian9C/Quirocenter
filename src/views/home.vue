@@ -15,21 +15,34 @@
           background-color="#CFCFCF"
           dense
           outlined
+          v-model="name"
       ></v-text-field>
       <v-text-field
+          type="password"
           label="Password"
           placeholder="password"
           rounded
           background-color="#CFCFCF"
           dense
           outlined
+          v-model="password"
       ></v-text-field>
       <v-btn
           color="#CFCFCF"
           elevation="1"
           medium
-          to="/services"
+          v-on:click="register"
       > Entrar </v-btn>
+      <br>
+      <v-alert
+          id="alert"
+          dense
+          outlined
+          type="error"
+          v-if="error"
+      >
+        {{error}}
+      </v-alert>
       <div class="login">
         <p>Lost your password? <a @click="$router.push(`/forgotPass`)">clic here</a></p>
       </div>
@@ -39,8 +52,32 @@
 </template>
 
 <script>
+import db from '@/util/index';
+import firebase from 'firebase';
 export default {
-  name: "home"
+  data (){
+    return{
+      name: '',
+      password: '',
+      error: ''
+    }
+  },
+  name: "home",
+  methods:{
+    register(){
+      if (this.name && this.password){
+        firebase.auth().signInWithEmailAndPassword(this.name,this.password).then((userCredential) => {
+          this.$router.push({name: 'services'});
+        })
+            .catch((error) => {
+              var errorCode = error.code;
+              var errorMessage = error.message;
+            });
+      }else{
+        this.error='todos los campos son requeridos';
+      }
+    }
+  }
 }
 </script>
 
@@ -81,7 +118,7 @@ export default {
 }
 
 .login{
-  padding-top: 2rem;
+  padding-top: 1rem;
   display: flex;
   align-items: center;
 }
@@ -89,6 +126,10 @@ export default {
 .login p{
   font-size: smaller;
   color: dimgrey;
+}
+
+#alert{
+  font-size: 10px;
 }
 
 </style>
