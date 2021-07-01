@@ -65,4 +65,7 @@ export default {
   margin: 1rem 10% 5% 23%;
 }
 
+.back{
+  margin: 0.1rem 1% 5% 2%;
+}
 </style>

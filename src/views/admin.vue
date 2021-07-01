@@ -35,15 +35,19 @@ export default {
   justify-content: center;
   align-self: center;
   background-color: #2EABC7;
-  width: 20rem;
-  height: 5.3rem;
+  width: 17rem;
+  height: 4.5rem;
   border-radius: 60px;
   color: white;
   margin: 2rem 2% 5% 33%;
 }
 .roll p{
-  font-size: 49px;
+  font-size: 35px;
   font-weight: bold;
+  display: flex;
+  align-self: center;
+  justify-content: space-evenly;
+  margin: 0;
 }
 .roll:hover{
   cursor: pointer;

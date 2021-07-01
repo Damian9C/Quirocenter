@@ -6,7 +6,8 @@
       </h1>
       <div class="img">
       </div>
-      <h2 style="font-size: 24px;" >Para recuperar contraseña ingresa tu correo</h2>
+      <br>
+      <h2 style="font-size: 15px; color: dimgrey; font-style: italic" >Para recuperar contraseña ingresa tu correo</h2>
       <br>
       <v-text-field
           label="Email"
@@ -22,6 +23,8 @@
           medium
           to=" "
       > Enviar </v-btn>
+      <br>
+      <v-icon  @click="$router.push(`/`)">mdi-arrow-left-circle</v-icon>
 
     </div>
   </div>
