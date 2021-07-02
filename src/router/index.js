@@ -8,6 +8,7 @@ import admin from "../views/admin";
 import role from "../views/role";
 import editService from "../views/editService";
 import forgotPass from "../views/forgotPass";
+import firebase from "firebase";
 
 Vue.use(VueRouter)
 
@@ -20,42 +21,76 @@ const routes = [
   {
     path: '/customers',
     name: 'customers',
-    component: customers
+    component: customers,
+    meta:{
+      requestAuth: true
+    }
   },
   {
     path: '/quotes',
     name: 'quotes',
-    component: quotes
+    component: quotes,
+    meta:{
+      requestAuth: true
+    }
   },
   {
     path: '/services',
     name: 'services',
-    component: services
+    component: services,
+    meta:{
+      requestAuth: true
+    }
   },
   {
     path: '/admin',
     name: 'admin',
-    component: admin
+    component: admin,
+    meta:{
+      requestAuth: true
+    }
   },
   {
     path: '/role',
     name: 'role',
-    component: role
+    component: role,
+    meta:{
+      requestAuth: true
+    }
   },
   {
     path: '/editService',
     name: 'editService',
-    component: editService
+    component: editService,
+    meta:{
+      requestAuth: true
+    }
   },
   {
     path: '/forgotPass',
     name: 'forgotPass',
-    component: forgotPass
+    component: forgotPass,
+    meta:{
+      requestAuth: true
+    }
   }
 ]
 
 const router = new VueRouter({
   routes
 })
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(ruta => ruta.meta.requestAuth)){
+    const user = firebase.auth().currentUser;
+    if (user){
+      next();
+    }else{
+      next({name:'home'});
+    }
+  }else {
+    next();
+  }
+});
 
 export default router

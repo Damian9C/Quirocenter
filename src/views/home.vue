@@ -52,7 +52,6 @@
 </template>
 
 <script>
-import db from '@/util/index';
 import firebase from 'firebase';
 export default {
   data (){
@@ -70,8 +69,8 @@ export default {
           this.$router.push({name: 'services'});
         })
             .catch((error) => {
-              var errorCode = error.code;
-              var errorMessage = error.message;
+              let errorCode = error.code;
+              let errorMessage = error.message;
             });
       }else{
         this.error='todos los campos son requeridos';
