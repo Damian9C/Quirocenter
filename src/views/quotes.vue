@@ -233,4 +233,38 @@ export default {
   width: 75%;
   margin: 1rem 2% 5% 22%;
 }
+
+@media all and (max-width: 1230px) {
+  .quotesCmp{
+    width: 73%;
+    margin: 1rem 2% 5% 24%;
+  }
+}
+@media all and (max-width: 1130px) {
+  .quotesCmp{
+    width: 71%;
+    margin: 1rem 2% 5% 26%;
+  }
+}
+@media all and (max-width: 1065px) {
+  .quotesCmp{
+    width: 69%;
+    margin: 1rem 2% 5% 28%;
+  }
+}
+
+@media all and (max-width: 968px) {
+  .quotesCmp{
+    width: 67%;
+    margin: 1rem 2% 5% 30%;
+  }
+}
+
+@media all and (max-width: 959px) {
+  .quotesCmp{
+    width: 75%;
+    margin: auto;
+  }
+}
+
 </style>

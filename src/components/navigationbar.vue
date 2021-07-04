@@ -6,6 +6,7 @@
         elevation="0"
         app
     >
+      <v-app-bar-nav-icon  @click="drawer = true" id="color"></v-app-bar-nav-icon>
       <h1 class="navigationBar__title" @click="$router.push('/services')">
         Quirocenter
       </h1>
@@ -13,8 +14,9 @@
 
     <v-navigation-drawer
         absolute
-        permanent
+        :permanent="$vuetify.breakpoint.mdAndUp"
         class="navigationDrawerCmp"
+        v-model="drawer"
     >
       <v-list
           nav
@@ -103,4 +105,9 @@ export default {
   .navigationBar__title:hover{
     cursor: pointer;
   }
+
+  #color{
+   color: white;
+  }
+
 </style>

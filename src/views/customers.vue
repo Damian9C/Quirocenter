@@ -273,4 +273,38 @@ export default {
   width: 75%;
   margin: 1rem 2% 5% 22%;
 }
+
+@media all and (max-width: 1230px) {
+  .customerCmp{
+    width: 73%;
+    margin: 1rem 2% 5% 24%;
+  }
+}
+@media all and (max-width: 1130px) {
+  .customerCmp{
+    width: 71%;
+    margin: 1rem 2% 5% 26%;
+  }
+}
+@media all and (max-width: 1065px) {
+  .customerCmp{
+    width: 69%;
+    margin: 1rem 2% 5% 28%;
+  }
+}
+
+@media all and (max-width: 968px) {
+  .customerCmp{
+    width: 67%;
+    margin: 1rem 2% 5% 30%;
+  }
+}
+
+@media all and (max-width: 959px) {
+  .customerCmp{
+    width: 75%;
+    margin: auto;
+  }
+}
+
 </style>

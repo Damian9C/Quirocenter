@@ -95,4 +95,37 @@ export default {
   width: 75%;
   margin: 1rem 2% 5% 22%;
 }
+
+@media all and (max-width: 1230px) {
+  .services__container{
+    width: 73%;
+    margin: 1rem 2% 5% 24%;
+  }
+}
+@media all and (max-width: 1130px) {
+  .services__container{
+    width: 71%;
+    margin: 1rem 2% 5% 26%;
+  }
+}
+@media all and (max-width: 1065px) {
+  .services__container{
+    width: 69%;
+    margin: 1rem 2% 5% 28%;
+  }
+}
+
+@media all and (max-width: 968px) {
+  .services__container{
+    width: 67%;
+    margin: 1rem 2% 5% 30%;
+  }
+}
+
+@media all and (max-width: 959px) {
+  .services__container{
+    width: 75%;
+    margin: auto;
+  }
+}
 </style>

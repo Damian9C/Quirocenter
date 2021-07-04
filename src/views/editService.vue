@@ -68,4 +68,37 @@ export default {
 .back{
   margin: 0.1rem 1% 5% 2%;
 }
+
+@media all and (max-width: 1230px) {
+  .config{
+    width: 73%;
+    margin: 1rem 2% 5% 24%;
+  }
+}
+@media all and (max-width: 1130px) {
+  .config{
+    width: 71%;
+    margin: 1rem 2% 5% 26%;
+  }
+}
+@media all and (max-width: 1065px) {
+  .config{
+    width: 69%;
+    margin: 1rem 2% 5% 28%;
+  }
+}
+
+@media all and (max-width: 968px) {
+  .config{
+    width: 67%;
+    margin: 1rem 2% 5% 30%;
+  }
+}
+
+@media all and (max-width: 959px) {
+  .config{
+    width: 75%;
+    margin: auto;
+  }
+}
 </style>
