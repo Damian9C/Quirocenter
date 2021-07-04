@@ -10,6 +10,7 @@
       <h2 style="font-size: 15px; color: dimgrey; font-style: italic" >Para recuperar contraseña ingresa tu correo</h2>
       <br>
       <v-text-field
+          type="email"
           label="Email"
           placeholder="email"
           rounded

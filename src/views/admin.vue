@@ -9,8 +9,6 @@
       <div class="roll" @click="$router.push(`/editService`)">
         <p>Servicios <v-icon right size="50" color="white" >mdi-pencil</v-icon></p>
       </div>
-
-
     </div>
   </div>
 </template>

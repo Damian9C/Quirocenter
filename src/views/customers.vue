@@ -58,7 +58,6 @@
     </div>
   </div>
 </template>
-
 <script>
 import Titles from "../components/titles";
 import Navigationbar from "../components/navigationbar";
@@ -306,5 +305,20 @@ export default {
     margin: auto;
   }
 }
+.customer__data{
+  display: flex;
+}
 
+.customer--title{
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.customer--txt{
+  font-size: 1.5rem;
+}
+
+.customer__data--btn{
+  margin: 5rem;
+}
 </style>

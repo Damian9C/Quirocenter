@@ -34,7 +34,7 @@
 import Titles from "../components/titles";
 import Navigationbar from "../components/navigationbar";
 import { auth } from '../util/index'
-import { onMounted } from 'vue'
+import { onMounted } from 'vue';
 export default {
   name: "services",
   components: {Navigationbar, Titles},

@@ -8,6 +8,7 @@ import admin from "../views/admin";
 import role from "../views/role";
 import editService from "../views/editService";
 import forgotPass from "../views/forgotPass";
+import _id from "../views/customer/_id";
 import firebase from "firebase";
 
 Vue.use(VueRouter)
@@ -70,6 +71,14 @@ const routes = [
     path: '/forgotPass',
     name: 'forgotPass',
     component: forgotPass
+  },
+  {
+    path: '/_id',
+    name: '_id',
+    component: _id,
+    meta:{
+      requestAuth: true
+    }
   }
 ]
 

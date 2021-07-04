@@ -9,8 +9,9 @@
       <h2 style="font-size: 24px;" >iniciar sesion</h2>
       <br>
       <v-text-field
-          label="Username"
-          placeholder="username"
+          type="email"
+          label="email"
+          placeholder="email"
           rounded
           background-color="#CFCFCF"
           dense
