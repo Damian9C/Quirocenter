@@ -73,7 +73,7 @@
             </v-list-item-icon>
 
             <v-list-item-content>
-              <v-list-item-title>Cerrar Sesion</v-list-item-title>
+              <v-list-item-title @click.prevent="logout">Cerrar Sesion</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
 
@@ -85,12 +85,21 @@
 </template>
 
 <script>
+import firebase from "firebase";
+
 export default {
   name: "navigationbar",
   data: () => ({
     drawer: false,
     group: null,
   }),
+  methods:{
+    logout(){
+      firebase.auth().signOut().then(()=>{
+        this.$router.push({name:'home'})
+      })
+    }
+  },
 }
 </script>
 

@@ -39,7 +39,7 @@ export default {
   height: 4.5rem;
   border-radius: 60px;
   color: white;
-  margin: auto;
+  margin: 5% auto;
 }
 .roll p{
   font-size: 35px;

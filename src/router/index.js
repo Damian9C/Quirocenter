@@ -69,10 +69,7 @@ const routes = [
   {
     path: '/forgotPass',
     name: 'forgotPass',
-    component: forgotPass,
-    meta:{
-      requestAuth: true
-    }
+    component: forgotPass
   }
 ]
 
