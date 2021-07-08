@@ -73,7 +73,7 @@ const routes = [
     component: forgotPass
   },
   {
-    path: '/_id',
+    path: '/customer/:id',
     name: '_id',
     component: _id,
     meta:{

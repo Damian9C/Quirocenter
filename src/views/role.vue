@@ -2,7 +2,7 @@
   <div>
     <navigationbar/>
     <div class="config">
-      <titles principal-title="Roles"/>
+      <titles principal-title="Cuentas"/>
       <v-icon class="back" @click="$router.push(`/admin`)">mdi-arrow-left</v-icon>
       <v-simple-table>
         <template v-slot:default>
@@ -12,7 +12,7 @@
               Usuarios
             </th>
             <th>
-              Roles
+              Cuentas
             </th>
             <th>
               Correos

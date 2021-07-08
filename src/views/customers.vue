@@ -45,14 +45,6 @@
             </v-icon>
           </v-btn>
         </template>
-        <template v-slot:no-data>
-          <v-btn
-              color="primary"
-              @click="initialize"
-          >
-            Reset
-          </v-btn>
-        </template>
       </v-data-table>
       <br/><br/>
     </div>
@@ -80,22 +72,7 @@ export default {
       { text: 'Direccion', value: 'address' },
       { text: 'Acciones', value: 'actions', sortable: false },
     ],
-    desserts: [],
-    editedIndex: -1,
-    editedItem: {
-      name: '',
-      calories: 0,
-      fat: 0,
-      carbs: 0,
-      protein: 0,
-    },
-    defaultItem: {
-      name: '',
-      calories: 0,
-      fat: 0,
-      carbs: 0,
-      protein: 0,
-    },
+    desserts: []
   }),
 
   watch: {

@@ -4,7 +4,7 @@
     <div class="config">
       <titles principal-title="Modulo Administrativo"/>
       <div class="roll" @click="$router.push(`/role`)">
-        <p>Roles <v-icon right size="50" color="white" >mdi-account-cog</v-icon></p>
+        <p>Cuentas <v-icon right size="50" color="white" >mdi-account-cog</v-icon></p>
       </div>
       <div class="roll" @click="$router.push(`/editService`)">
         <p>Servicios <v-icon right size="50" color="white" >mdi-pencil</v-icon></p>
