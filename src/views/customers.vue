@@ -3,7 +3,65 @@
     <navigationbar/>
     <div class="customerCmp">
       <titles principal-title="Clientes"/>
-
+      <div class="bottons">
+        <v-spacer></v-spacer>
+        <v-btn
+            class="btn__two"
+            color="teal"
+            @click="overlay = !overlay"
+        >
+          agregar
+        </v-btn>
+        <v-overlay
+            :z-index="zIndex"
+            :value="overlay"
+        >
+          <div class="form__content">
+            <titles principal-title="Añadir Nuevo Cliente"/>
+            <br>
+            <div>
+              <v-text-field
+                  class="thing"
+                  label="Nombre"
+                  placeholder="Nombre Completo"
+                  rounded
+                  background-color="#349DB4"
+                  dense
+                  outlined
+              ></v-text-field>
+            </div>
+            <div>
+              <v-text-field
+                  class="thing"
+                  label="Numero"
+                  placeholder="Numero Telefonico"
+                  rounded
+                  background-color="#349DB4"
+                  dense
+                  outlined
+              ></v-text-field>
+              <v-text-field
+                  class="thing"
+                  label="Direccion"
+                  placeholder="Direccion Completa"
+                  rounded
+                  background-color="#349DB4"
+                  dense
+                  outlined
+              ></v-text-field>
+            </div>
+            <div>
+              <v-btn
+                  class="white--text"
+                  color="teal"
+                  @click="overlay = false"
+              >
+                añadir
+              </v-btn>
+            </div>
+          </div>
+        </v-overlay>
+      </div>
       <v-data-table
           :headers="headers"
           :items="desserts"
@@ -60,6 +118,8 @@ export default {
     dialog: false,
     dialogDelete: false,
     search: '',
+    overlay: false,
+    zIndex: 1,
     headers: [
       {
         text: 'Nombre',
@@ -98,146 +158,6 @@ export default {
           "phone": "1-959-766-5928",
           "age": 28
         },
-        {
-          "id": "EPL90RRK2AL",
-          "name": "Evangeline Marsh",
-          "address": "Apartado núm.: 363, 5702 Ac Ctra.",
-          "phone": "1-843-585-2546",
-          "age": 27
-        },
-        {
-          "id": "YRO65JSW2RH",
-          "name": "Jonas Wade",
-          "address": "Apartado núm.: 759, 4204 A, ",
-          "phone": "1-326-612-3639",
-          "age": 62
-        },
-        {
-          "id": "EVU25QUI2EG",
-          "name": "Dustin Patterson",
-          "address": "239-7272 Et, Carretera",
-          "phone": "1-924-972-5232",
-          "age": 31
-        },
-        {
-          "id": "YSK90TVM8CT",
-          "name": "Lyle Levine",
-          "address": "864-7639 Ultrices. C.",
-          "phone": "1-942-991-9059",
-          "age": 50
-        },
-        {
-          "id": "JTC61QWP9JL",
-          "name": "Dylan Y. Jimenez",
-          "address": "Apdo.:111-9350 Pede. Av.",
-          "phone": "1-540-424-1868",
-          "age": 45
-        },
-        {
-          "id": "GIT43LYB5QY",
-          "name": "Rahim W. Shannon",
-          "address": "Apartado núm.: 726, 5004 Augue Calle",
-          "phone": "1-191-454-1886",
-          "age": 56
-        },
-        {
-          "id": "IDZ84FQU4HO",
-          "name": "Cheryl Erickson",
-          "address": "Apdo.:823-4935 Malesuada Ctra.",
-          "phone": "1-774-191-4777",
-          "age": 29
-        },
-        {
-          "id": "GYK32SXW1LB",
-          "name": "Vernon E. Black",
-          "address": "448-6090 Nec Avda.",
-          "phone": "1-317-872-3708",
-          "age": 70
-        },
-        {
-          "id": "LOK64WGN4DS",
-          "name": "Kendall Z. Wiggins",
-          "address": "786-7430 Rhoncus. C/",
-          "phone": "1-513-274-9862",
-          "age": 26
-        },
-        {
-          "id": "MKT46IHS5EN",
-          "name": "Kelly L. Cross",
-          "address": "Apartado núm.: 642, 304 Aenean Ctra.",
-          "phone": "1-926-420-3287",
-          "age": 40
-        },
-        {
-          "id": "MYS49ZHC8SN",
-          "name": "Kuame Morales",
-          "address": "339 Iaculis C.",
-          "phone": "1-868-316-0733",
-          "age": 45
-        },
-        {
-          "id": "IBD15MLR9CO",
-          "name": "Cassandra P. Gill",
-          "address": "Apartado núm.: 699, 2092 Primis C.",
-          "phone": "1-575-621-9886",
-          "age": 55
-        },
-        {
-          "id": "ZKC57SSN1BU",
-          "name": "Oscar T. Carter",
-          "address": "Apdo.:799-6652 Et Carretera",
-          "phone": "1-281-828-8965",
-          "age": 31
-        },
-        {
-          "id": "DBF61JLS7TK",
-          "name": "Jaquelyn O. Sparks",
-          "address": "Apdo.:431-9110 Libero. ",
-          "phone": "1-550-277-1852",
-          "age": 26
-        },
-        {
-          "id": "FIC03PUW6ZA",
-          "name": "Cailin Charles",
-          "address": "Apdo.:956-459 Non, Carretera",
-          "phone": "1-305-292-0516",
-          "age": 47
-        },
-        {
-          "id": "BJI45JGG7IN",
-          "name": "Lane C. Taylor",
-          "address": "Apartado núm.: 713, 1777 Sit Carretera",
-          "phone": "1-165-669-2924",
-          "age": 61
-        },
-        {
-          "id": "HOH30WJY0XL",
-          "name": "Ginger H. Chandler",
-          "address": "318-6747 Tortor. Carretera",
-          "phone": "1-327-366-7521",
-          "age": 46
-        },
-        {
-          "id": "ZXI09HCB2PG",
-          "name": "Libby D. Bishop",
-          "address": "369-4215 Vitae C.",
-          "phone": "1-191-443-9656",
-          "age": 52
-        },
-        {
-          "id": "NGD45IKX7FM",
-          "name": "Dakota Taylor",
-          "address": "5246 Enim Carretera",
-          "phone": "1-573-711-8464",
-          "age": 27
-        },
-        {
-          "id": "IPZ82YKG4PZ",
-          "name": "Ila L. Ewing",
-          "address": "Apdo.:704-8120 Vitae, ",
-          "phone": "1-874-852-4391",
-          "age": 61
-        },
       ]
     },
   },
@@ -245,6 +165,26 @@ export default {
 </script>
 
 <style scoped>
+.bottons{
+  display: flex;
+  flex-direction: row;
+}
+
+.form__content{
+  background-color: #69C9DE;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 15px;
+  width: 45vh;
+  height: 65vh;
+}
+
+.btn__two{
+  color: white;
+}
+
 .customerCmp{
   width: 77%;
   margin: 1rem 2% 5% 19%;
@@ -294,6 +234,19 @@ export default {
   .customerCmp{
     width: 90%;
     margin: auto;
+  }
+}
+
+@media all and (max-width: 425px) {
+  .form__content{
+    width: 40vh;
+    height: 62vh;
+  }
+}
+@media all and (max-width: 370px) {
+  .form__content{
+    width: 35vh;
+    height: 60vh;
   }
 }
 

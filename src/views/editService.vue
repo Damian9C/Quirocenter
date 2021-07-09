@@ -5,15 +5,56 @@
       <titles principal-title="Servicios"/>
       <div class="bottons">
       <v-icon class="back" @click="$router.push(`/admin`)">mdi-arrow-left</v-icon>
-        <v-spacer></v-spacer>
+      <v-spacer></v-spacer>
       <v-btn
           class="btn__two"
-          color="green"
-          @click="secret"
+          color="teal"
+          @click="overlay = !overlay"
       >
         agregar
       </v-btn>
+      <v-overlay
+          :z-index="zIndex"
+          :value="overlay"
+      >
+        <div class="form__content">
+          <titles principal-title="Añadir Nuevo Servicio"/>
+          <br>
+          <div>
+            <v-text-field
+                class="thing"
+                label="Servicio"
+                placeholder="Nombre del Servicio"
+                rounded
+                background-color="#349DB4"
+                dense
+                outlined
+            ></v-text-field>
+          </div>
+          <div>
+            <v-text-field
+                class="thing"
+                label="Precio"
+                placeholder="Precio del Servicio"
+                rounded
+                background-color="#349DB4"
+                dense
+                outlined
+            ></v-text-field>
+          </div>
+          <div>
+            <v-btn
+                class="white--text"
+                color="teal"
+                @click="overlay = false"
+            >
+              añadir
+            </v-btn>
+          </div>
+        </div>
+      </v-overlay>
       </div>
+
       <v-simple-table>
         <template v-slot:default>
           <thead>
@@ -36,7 +77,13 @@
           >
             <td>{{ item.name }}</td>
             <td>{{ item.precio }}</td>
-            <td><v-icon @click="$router.push(`/admin`)"> mdi-dots-vertical </v-icon></td>
+            <td><v-btn
+                class="btn__two"
+                color="red"
+                @click="secret"
+            >
+              borrar
+            </v-btn></td>
           </tr>
           </tbody>
         </template>
@@ -53,23 +100,16 @@ export default {
   name: "editService",
   components: {Navigationbar, Titles},
   data: () => ({
-    desserts: [
-      {
-        name: 'Servicio 1',
-        precio: 500,
-      },
-      {
-        name: 'Servicio 2',
-        precio: 350,
-      },
-      {
-        name: 'Servicio 3',
-        precio: 450,
-      }]
+    desserts: [{
+      name:'german',
+      precio: 55
+    }],
+    overlay: false,
+    zIndex: 1,
   }),
   methods:{
     secret(){
-      db.collection("users").add({
+      db.collection("services").add({
         first: "Ada",
         last: "Lovelace",
         born: 1815
@@ -98,6 +138,21 @@ export default {
 
 .back{
   margin: 0.1rem 1% 5% 1%;
+}
+
+.form__content{
+  background-color: #69C9DE;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 15px;
+  width: 43vh;
+  height: 56vh;
+}
+
+.btn__two{
+  color: white;
 }
 
 @media all and (max-width: 1350px) {
@@ -137,6 +192,18 @@ export default {
   .config{
     width: 90%;
     margin: auto;
+  }
+}
+@media all and (max-width: 425px) {
+  .form__content{
+    width: 37vh;
+    height: 50vh;
+  }
+}
+@media all and (max-width: 370px) {
+  .form__content{
+    width: 35vh;
+    height: 50vh;
   }
 }
 </style>
