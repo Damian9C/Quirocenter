@@ -2,6 +2,7 @@
   <div>
     <navigationbar/>
     <div class="customer__data">
+      <v-icon size="28" class="back" @click="$router.push(`/customers`)">mdi-arrow-left</v-icon>
       <Titles principal-title="Perfil de Usuario"/>
       <div>
         <br/>
@@ -122,14 +123,13 @@ export default {
 </script>
 
 <style scoped>
-
 .customer--title{
   font-size: 2rem;
   font-weight: bold;
 }
 
 .customer__data--btn {
-  padding-right: 8rem;
+  padding-right: 7rem;
   display: flex;
   justify-content: flex-end;
 }
@@ -144,8 +144,19 @@ export default {
 }
 
 .table{
-  width: 73%;
+  width: 77%;
   margin: 1rem 2% 5% 20%;
+}
+
+@media all and (max-width: 1360px) {
+  .customer__data{
+    width: 77%;
+    margin: 1rem 2% 5% 22%;
+  }
+  .table{
+    width: 76%;
+    margin: 1rem 2% 5% 22%;
+  }
 }
 
 @media all and (max-width: 1230px) {

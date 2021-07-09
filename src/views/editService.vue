@@ -3,7 +3,17 @@
     <navigationbar/>
     <div class="config">
       <titles principal-title="Servicios"/>
+      <div class="bottons">
       <v-icon class="back" @click="$router.push(`/admin`)">mdi-arrow-left</v-icon>
+        <v-spacer></v-spacer>
+      <v-btn
+          class="btn__two"
+          color="green"
+          @click="secret"
+      >
+        agregar
+      </v-btn>
+      </div>
       <v-simple-table>
         <template v-slot:default>
           <thead>
@@ -36,6 +46,7 @@
 </template>
 
 <script>
+import {db} from '../util/index'
 import Titles from "../components/titles";
 import Navigationbar from "../components/navigationbar";
 export default {
@@ -55,23 +66,50 @@ export default {
         name: 'Servicio 3',
         precio: 450,
       }]
-  })
+  }),
+  methods:{
+    secret(){
+      db.collection("users").add({
+        first: "Ada",
+        last: "Lovelace",
+        born: 1815
+      })
+          .then((docRef) => {
+
+          })
+          .catch((error) => {
+            console.error("Error adding document: ", error);
+          });
+    }
+  }
 }
 </script>
 
 <style scoped>
+.bottons{
+  display: flex;
+  flex-direction: row;
+}
+
 .config{
-  width: 75%;
-  margin: 1rem 10% 5% 23%;
+  width: 76%;
+  margin: 1rem 10% 5% 20%;
 }
 
 .back{
-  margin: 0.1rem 1% 5% 2%;
+  margin: 0.1rem 1% 5% 1%;
+}
+
+@media all and (max-width: 1350px) {
+  .config{
+    width: 74%;
+    margin: 1rem 2% 5% 22%;
+  }
 }
 
 @media all and (max-width: 1230px) {
   .config{
-    width: 73%;
+    width: 72%;
     margin: 1rem 2% 5% 24%;
   }
 }
@@ -97,7 +135,7 @@ export default {
 
 @media all and (max-width: 959px) {
   .config{
-    width: 75%;
+    width: 90%;
     margin: auto;
   }
 }

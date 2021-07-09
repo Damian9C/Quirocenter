@@ -70,10 +70,24 @@ export default {
 <style scoped>
 .config{
   width: 75%;
-  margin: 1rem 2% 5% 23%;
+  margin: 1rem 2% 5% 19%;
 }
 .back{
-  margin: 0.1rem 1% 5% 2%;
+  margin: 0.1rem 1% 5% 1%;
+}
+
+@media all and (max-width: 1400px) {
+  .config{
+    width: 75%;
+    margin: 1rem 2% 5% 21%;
+  }
+}
+
+@media all and (max-width: 1275px) {
+  .config{
+    width: 73%;
+    margin: 1rem 2% 5% 22%;
+  }
 }
 
 @media all and (max-width: 1230px) {
@@ -91,7 +105,7 @@ export default {
 @media all and (max-width: 1065px) {
   .config{
     width: 69%;
-    margin: 1rem 2% 5% 28%;
+    margin: 1rem 2% 5% 27%;
   }
 }
 
@@ -104,7 +118,7 @@ export default {
 
 @media all and (max-width: 959px) {
   .config{
-    width: 75%;
+    width: 90%;
     margin: auto;
   }
 }

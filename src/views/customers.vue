@@ -246,56 +246,55 @@ export default {
 
 <style scoped>
 .customerCmp{
-  width: 75%;
-  margin: 1rem 2% 5% 22%;
+  width: 77%;
+  margin: 1rem 2% 5% 19%;
 }
 
 @media all and (max-width: 1230px) {
+  .customerCmp{
+    width: 74%;
+    margin: 1rem 2% 5% 23%;
+  }
+}
+@media all and (max-width: 1160px) {
   .customerCmp{
     width: 73%;
     margin: 1rem 2% 5% 24%;
   }
 }
-@media all and (max-width: 1130px) {
+@media all and (max-width: 1110px) {
   .customerCmp{
-    width: 71%;
-    margin: 1rem 2% 5% 26%;
-  }
-}
-@media all and (max-width: 1065px) {
-  .customerCmp{
-    width: 69%;
-    margin: 1rem 2% 5% 28%;
+    width: 73%;
+    margin: 1rem 2% 5% 25%;
   }
 }
 
-@media all and (max-width: 968px) {
+@media all and (max-width: 1060px) {
   .customerCmp{
-    width: 67%;
-    margin: 1rem 2% 5% 30%;
+    width: 72%;
+    margin: 1rem 2% 5% 26%;
+  }
+}
+
+@media all and (max-width: 1030px) {
+  .customerCmp{
+    width: 71%;
+    margin: 1rem 2% 5% 27%;
+  }
+}
+
+@media all and (max-width: 990px) {
+  .customerCmp{
+    width: 70%;
+    margin: 1rem 2% 5% 28%;
   }
 }
 
 @media all and (max-width: 959px) {
   .customerCmp{
-    width: 75%;
+    width: 90%;
     margin: auto;
   }
 }
-.customer__data{
-  display: flex;
-}
 
-.customer--title{
-  font-size: 2rem;
-  font-weight: bold;
-}
-
-.customer--txt{
-  font-size: 1.5rem;
-}
-
-.customer__data--btn{
-  margin: 5rem;
-}
 </style>

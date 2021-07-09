@@ -6,7 +6,7 @@
         elevation="0"
         app
     >
-      <v-app-bar-nav-icon  @click="drawer = true" id="color"></v-app-bar-nav-icon>
+      <v-app-bar-nav-icon class="d-flex d-md-none" @click="drawer = true" id="color"></v-app-bar-nav-icon>
       <h1 class="navigationBar__title" @click="$router.push('/services')">
         Quirocenter
       </h1>

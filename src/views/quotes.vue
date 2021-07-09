@@ -230,8 +230,22 @@ export default {
 
 <style scoped>
 .quotesCmp{
-  width: 75%;
-  margin: 1rem 2% 5% 22%;
+  width: 77%;
+  margin: 1rem 2% 5% 19%;
+}
+
+@media all and (max-width: 1400px) {
+  .quotesCmp{
+    width: 75%;
+    margin: 1rem 2% 5% 21%;
+  }
+}
+
+@media all and (max-width: 1300px) {
+  .quotesCmp{
+    width: 73%;
+    margin: 1rem 2% 5% 23%;
+  }
 }
 
 @media all and (max-width: 1230px) {
@@ -240,29 +254,31 @@ export default {
     margin: 1rem 2% 5% 24%;
   }
 }
+
 @media all and (max-width: 1130px) {
   .quotesCmp{
-    width: 71%;
-    margin: 1rem 2% 5% 26%;
+    width: 73%;
+    margin: 1rem 2% 5% 25%;
   }
 }
+
 @media all and (max-width: 1065px) {
   .quotesCmp{
-    width: 69%;
+    width: 71%;
+    margin: 1rem 2% 5% 27%;
+  }
+}
+
+@media all and (max-width: 990px) {
+  .quotesCmp{
+    width: 70%;
     margin: 1rem 2% 5% 28%;
   }
 }
 
-@media all and (max-width: 968px) {
+@media all and (max-width: 960px) {
   .quotesCmp{
-    width: 67%;
-    margin: 1rem 2% 5% 30%;
-  }
-}
-
-@media all and (max-width: 959px) {
-  .quotesCmp{
-    width: 75%;
+    width: 90%;
     margin: auto;
   }
 }

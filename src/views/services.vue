@@ -31,10 +31,10 @@
 </template>
 
 <script>
+
 import Titles from "../components/titles";
 import Navigationbar from "../components/navigationbar";
-import { auth } from '../util/index'
-import { onMounted } from 'vue';
+import {db} from '../util/index'
 export default {
   name: "services",
   components: {Navigationbar, Titles},
@@ -82,49 +82,62 @@ export default {
       },
     ]
   }),
-  async mounted() {
-    await auth.onAuthStateChanged((user) => {
-      console.log(user)
-    })
+  methods:{
+     secret(){
+       db.collection("users").add({
+         first: "Ada",
+         last: "Lovelace",
+         born: 1815
+       })
+           .then((docRef) => {
+
+           })
+           .catch((error) => {
+             console.error("Error adding document: ", error);
+           });
+}
+  },
+  mounted() {
+
   }
 }
 </script>
 
 <style scoped>
 .services__container{
-  width: 75%;
-  margin: 1rem 2% 5% 22%;
+  width: 77%;
+  margin: 1rem 2% 5% 19%;
 }
 
 @media all and (max-width: 1230px) {
   .services__container{
-    width: 73%;
-    margin: 1rem 2% 5% 24%;
+    width: 72%;
+    margin: 1rem 2% 5% 23%;
   }
 }
 @media all and (max-width: 1130px) {
   .services__container{
     width: 71%;
-    margin: 1rem 2% 5% 26%;
+    margin: 1rem 2% 5% 25%;
   }
 }
 @media all and (max-width: 1065px) {
+  .services__container{
+    width: 71%;
+    margin: 1rem 2% 5% 26%;
+  }
+}
+
+@media all and (max-width: 1030px) {
   .services__container{
     width: 69%;
     margin: 1rem 2% 5% 28%;
   }
 }
 
-@media all and (max-width: 968px) {
-  .services__container{
-    width: 67%;
-    margin: 1rem 2% 5% 30%;
-  }
-}
-
 @media all and (max-width: 959px) {
   .services__container{
-    width: 75%;
+    width: 90%;
     margin: auto;
   }
 }
