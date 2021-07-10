@@ -18,7 +18,7 @@
           <tbody>
           <tr
               v-for="item in desserts"
-              :key="item.id"
+              :key="item.name"
           >
             <td v-for="item in services" v-bind:key="item.id">{{ item.data.name}}</td>
             <td v-for="item in services" v-bind:key="item.id">{{ item.data.precio }}</td>
@@ -43,7 +43,7 @@ export default {
         precio: null,
         services: [],
       }],
-    services: []
+    services:[]
   }),
   mounted(){
     db.collection('services').get().then((r) => r.docs.map((item) => this.services.push({id:item.id, data:item.data()})))

@@ -49,7 +49,7 @@
                 class="white--text"
                 color="teal"
                 @click="overlay = false"
-                @click.prevent="addUser"
+                @click.prevent="addServe"
             >
               añadir
             </v-btn>
@@ -74,11 +74,11 @@
           </thead>
           <tbody>
           <tr
-              v-for="item in desserts"
+              v-for="item in services"
               :key="item.name"
           >
-            <td v-for="item in services" v-bind:key="item.id">{{ item.data.name}}</td>
-            <td v-for="item in services" v-bind:key="item.id">{{ item.data.precio }}</td>
+            <td>{{ item.data.name }}</td>
+            <td>{{ item.data.precio }}</td>
             <td><v-btn
                 class="btn__two"
                 color="red"
@@ -102,20 +102,15 @@ export default {
   name: "editService",
   components: {Navigationbar, Titles},
   data: () => ({
-    desserts: [{
-      name: null,
-      precio: null,
-      services: [],
-    }],
     overlay: false,
     zIndex: 1,
-    services: [],
+    services: []
   }),
   mounted(){
     db.collection('services').get().then((r) => r.docs.map((item) => this.services.push({id:item.id, data:item.data()})))
   },
   methods: {
-    addUser() {
+    addServe() {
       db.collection("services").add({
         name: this.name,
         precio: this.precio

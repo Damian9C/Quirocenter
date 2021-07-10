@@ -28,6 +28,7 @@
                   background-color="#349DB4"
                   dense
                   outlined
+                  v-model="name"
               ></v-text-field>
             </div>
             <div>
@@ -39,7 +40,22 @@
                   background-color="#349DB4"
                   dense
                   outlined
+                  v-model="phone"
               ></v-text-field>
+            </div>
+            <div>
+              <v-text-field
+                  class="thing"
+                  label="Edad"
+                  placeholder="Edad"
+                  rounded
+                  background-color="#349DB4"
+                  dense
+                  outlined
+                  v-model="age"
+              ></v-text-field>
+            </div>
+            <div>
               <v-text-field
                   class="thing"
                   label="Direccion"
@@ -48,13 +64,15 @@
                   background-color="#349DB4"
                   dense
                   outlined
+                  v-model="address"
               ></v-text-field>
-            </div>
+          </div>
             <div>
               <v-btn
                   class="white--text"
                   color="teal"
                   @click="overlay = false"
+                  @click.prevent="addCustom"
               >
                 añadir
               </v-btn>
@@ -64,12 +82,11 @@
       </div>
       <v-data-table
           :headers="headers"
-          :items="desserts"
+          :items="customer"
           class="elevation-0"
           :search="search"
       >
         <template v-slot:top>
-
           <v-text-field
               v-model="search"
               label="Buscar"
@@ -109,17 +126,18 @@
   </div>
 </template>
 <script>
+import {db} from '../util/index'
 import Titles from "../components/titles";
 import Navigationbar from "../components/navigationbar";
 export default {
   name: "customers",
   components: {Navigationbar, Titles},
   data: () => ({
-    dialog: false,
-    dialogDelete: false,
     search: '',
     overlay: false,
+    lore: null,
     zIndex: 1,
+    customer:[],
     headers: [
       {
         text: 'Nombre',
@@ -132,35 +150,37 @@ export default {
       { text: 'Direccion', value: 'address' },
       { text: 'Acciones', value: 'actions', sortable: false },
     ],
-    desserts: []
+    dessert:[]
   }),
+  created () {
 
-  watch: {
-    dialog (val) {
-      val || this.close()
-    },
-    dialogDelete (val) {
-      val || this.closeDelete()
-    },
   },
 
-  created () {
+  mounted(){
+    db.collection('customer').get().then((r) => r.docs.map((item) => this.customer.push({id:item.id, data:item.data()})))
     this.initialize()
   },
 
   methods: {
     initialize () {
-      this.desserts = [
-        {
-          "id": "NFG67JKF6TV",
-          "name": "Noelle Woodward",
-          "address": "1741 At ",
-          "phone": "1-959-766-5928",
-          "age": 28
-        },
-      ]
+      console.log(this.customer[0])
+      this.customer.forEach((element)=>{
+        console.log(element)
+      })
     },
-  },
+    addCustom() {
+      db.collection("customer").add({
+        name: this.name,
+        phone: this.phone,
+        age: this.age,
+        address: this.address,
+      })
+          .then(() => this.$mount())
+          .catch((error) => {
+            console.error("Error adding document: ", error);
+          });
+    }
+  }
 }
 </script>
 
