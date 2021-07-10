@@ -17,11 +17,11 @@
           </thead>
           <tbody>
           <tr
-              v-for="item in desserts"
+              v-for="item in services"
               :key="item.name"
           >
-            <td v-for="item in services" v-bind:key="item.id">{{ item.data.name}}</td>
-            <td v-for="item in services" v-bind:key="item.id">{{ item.data.precio }}</td>
+            <td>{{ item.data.name}}</td>
+            <td> $ {{ item.data.precio }}</td>
           </tr>
           </tbody>
         </template>

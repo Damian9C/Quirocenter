@@ -163,7 +163,6 @@ export default {
           age: item.data().age,
           address: item.data().address,
         })))
-
   },
 
   methods: {

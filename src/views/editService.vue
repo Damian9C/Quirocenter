@@ -78,11 +78,11 @@
               :key="item.name"
           >
             <td>{{ item.data.name }}</td>
-            <td>{{ item.data.precio }}</td>
+            <td>$ {{ item.data.precio }}</td>
             <td><v-btn
                 class="btn__two"
                 color="red"
-                @click=""
+                @click.prevent="deleteServe(item.id)"
             >
               borrar
             </v-btn></td>
@@ -106,12 +106,14 @@ export default {
     zIndex: 1,
     services: []
   }),
+
   mounted(){
     db.collection('services').get().then((r) => r.docs.map((item) => this.services.push({id:item.id, data:item.data()})))
   },
+
   methods: {
     addServe() {
-      db.collection("services").add({
+      db.collection('services').add({
         name: this.name,
         precio: this.precio
       })
@@ -119,6 +121,9 @@ export default {
           .catch((error) => {
             console.error("Error adding document: ", error);
           });
+    },
+    deleteServe(id){
+      db.collection('services').doc(id).delete().then(()=>this.$mount())
     }
   }
 }
@@ -198,6 +203,7 @@ export default {
     height: 50vh;
   }
 }
+
 @media all and (max-width: 370px) {
   .form__content{
     width: 35vh;
