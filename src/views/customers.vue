@@ -152,22 +152,21 @@ export default {
     ],
     dessert:[]
   }),
-  created () {
-
-  },
 
   mounted(){
-    db.collection('customer').get().then((r) => r.docs.map((item) => this.customer.push({id:item.id, data:item.data()})))
-    this.initialize()
+    db.collection('customer')
+        .get()
+        .then((r) => r.docs.map((item) => this.customer.push({
+          id:item.id,
+          name: item.data().name,
+          phone: item.data().phone,
+          age: item.data().age,
+          address: item.data().address,
+        })))
+
   },
 
   methods: {
-    initialize () {
-      console.log(this.customer[0])
-      this.customer.forEach((element)=>{
-        console.log(element)
-      })
-    },
     addCustom() {
       db.collection("customer").add({
         name: this.name,
