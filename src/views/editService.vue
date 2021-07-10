@@ -101,14 +101,15 @@ export default {
   components: {Navigationbar, Titles},
   data: () => ({
     desserts: [{
-      name:'german',
-      precio: 55
+      name: null,
+      precio: null,
+      services: [],
     }],
     overlay: false,
     zIndex: 1,
   }),
-  methods:{
-    secret(){
+  methods: {
+    secret() {
       db.collection("services").add({
         first: "Ada",
         last: "Lovelace",
@@ -123,6 +124,9 @@ export default {
     }
   }
 }
+
+
+
 </script>
 
 <style scoped>

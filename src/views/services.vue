@@ -20,8 +20,8 @@
               v-for="item in desserts"
               :key="item.name"
           >
-            <td>{{ item.name }}</td>
-            <td>{{ item.precio }}</td>
+            <td v-for="item in services" v-bind:key="item.id">{{ item.data.name}}</td>
+            <td v-for="item in services" v-bind:key="item.id">{{ item.data.precio }}</td>
           </tr>
           </tbody>
         </template>
@@ -31,7 +31,6 @@
 </template>
 
 <script>
-
 import Titles from "../components/titles";
 import Navigationbar from "../components/navigationbar";
 import {db} from '../util/index'
@@ -41,65 +40,16 @@ export default {
   data: () => ({
     desserts: [
       {
-        name: 'Frozen Yogurt',
-        precio: 159,
-      },
-      {
-        name: 'Ice cream sandwich',
-        precio: 237,
-      },
-      {
-        name: 'Eclair',
-        precio: 262,
-      },
-      {
-        name: 'Cupcake',
-        precio: 305,
-      },
-      {
-        name: 'Gingerbread',
-        precio: 356,
-      },
-      {
-        name: 'Jelly bean',
-        precio: 375,
-      },
-      {
-        name: 'Lollipop',
-        precio: 392,
-      },
-      {
-        name: 'Honeycomb',
-        precio: 408,
-      },
-      {
-        name: 'Donut',
-        precio: 452,
-      },
-      {
-        name: 'KitKat',
-        precio: 518,
-      },
-    ]
+        name: null,
+        precio: null,
+        services: [],
+      }],
+    services: []
   }),
-  methods:{
-     secret(){
-       db.collection("users").add({
-         first: "Ada",
-         last: "Lovelace",
-         born: 1815
-       })
-           .then((docRef) => {
-
-           })
-           .catch((error) => {
-             console.error("Error adding document: ", error);
-           });
-}
-  },
-  mounted() {
-
+  mounted(){
+    db.collection('services').get().then((r) => r.docs.map((item) => this.services.push({id:item.id, data:item.data()})))
   }
+
 }
 </script>
 
