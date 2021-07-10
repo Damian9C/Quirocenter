@@ -47,11 +47,21 @@
           <div>
             <v-btn
                 class="white--text"
-                color="teal"
+                color="#349DB4"
                 @click="overlay = false"
                 @click.prevent="addServe"
             >
               añadir
+            </v-btn>
+          </div>
+          <br>
+          <div>
+            <v-btn
+                class="white--text"
+                color="#349DB4"
+                @click="overlay = false"
+            >
+              cancelar
             </v-btn>
           </div>
         </div>
@@ -68,7 +78,7 @@
               Precio
             </th>
             <th>
-              Editar
+              Acciones
             </th>
           </tr>
           </thead>
@@ -82,10 +92,21 @@
             <td><v-btn
                 class="btn__two"
                 color="red"
-                @click.prevent="deleteServe(item.id)"
+                @click.prevent="deleteServe()"
             >
               borrar
             </v-btn></td>
+            <v-dialog v-model="dialogDelete" max-width="520px">
+              <v-card>
+                <v-card-title class="text-h5">¿Seguro que quieres eliminar este servicio?</v-card-title>
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn color="blue darken-1" text @click="closeDelete">Cancel</v-btn>
+                  <v-btn color="blue darken-1" text @click="deleteItemConfirm(item.id)">OK</v-btn>
+                  <v-spacer></v-spacer>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
           </tr>
           </tbody>
         </template>
@@ -104,8 +125,15 @@ export default {
   data: () => ({
     overlay: false,
     zIndex: 1,
-    services: []
+    dialogDelete: false,
+    services: [],
   }),
+
+  watch: {
+    dialogDelete (val) {
+      val || this.closeDelete()
+    },
+  },
 
   mounted(){
     db.collection('services').get().then((r) => r.docs.map((item) => this.services.push({id:item.id, data:item.data()})))
@@ -122,9 +150,19 @@ export default {
             console.error("Error adding document: ", error);
           });
     },
-    deleteServe(id){
+
+    deleteItemConfirm (id) {
       db.collection('services').doc(id).delete().then(()=>this.$mount())
-    }
+      this.closeDelete()
+    },
+
+    deleteServe () {
+      this.dialogDelete = true
+    },
+
+    closeDelete () {
+      this.dialogDelete = false
+    },
   }
 }
 </script>
@@ -200,14 +238,14 @@ export default {
 @media all and (max-width: 425px) {
   .form__content{
     width: 37vh;
-    height: 50vh;
+    height: 54vh;
   }
 }
 
 @media all and (max-width: 370px) {
   .form__content{
     width: 35vh;
-    height: 50vh;
+    height: 54vh;
   }
 }
 </style>

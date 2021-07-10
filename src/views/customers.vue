@@ -67,16 +67,26 @@
                   v-model="address"
               ></v-text-field>
           </div>
-            <div>
-              <v-btn
-                  class="white--text"
-                  color="teal"
-                  @click="overlay = false"
-                  @click.prevent="addCustom"
-              >
-                añadir
-              </v-btn>
-            </div>
+          <div>
+            <v-btn
+                class="white--text"
+                color="teal"
+                @click="overlay = false"
+                @click.prevent="addCustom"
+            >
+              añadir
+            </v-btn>
+          </div>
+            <br>
+          <div>
+            <v-btn
+                class="white--text"
+                color="teal"
+                @click="overlay = false"
+            >
+              cancelar
+            </v-btn>
+          </div>
           </div>
         </v-overlay>
       </div>
@@ -95,6 +105,17 @@
           <v-divider/>
         </template>
         <template v-slot:item.actions="{ item }">
+          <v-dialog v-model="dialogDelete" max-width="540px">
+            <v-card>
+              <v-card-title class="text-h5">¿Seguro que quieres eliminar a este cliente?</v-card-title>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn color="blue darken-1" text @click="closeDelete">Cancel</v-btn>
+                <v-btn color="blue darken-1" text @click="deleteItemConfirm(item.id)">OK</v-btn>
+                <v-spacer></v-spacer>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
           <v-btn
               small
               @click="$router.push(`/customer/${item.id}`)"
@@ -113,7 +134,7 @@
           </v-btn>
           <v-btn
               small
-              @click="deleteItem(item)"
+              @click="deleteCustom()"
           >
             <v-icon>
               mdi-delete
@@ -135,7 +156,7 @@ export default {
   data: () => ({
     search: '',
     overlay: false,
-    lore: null,
+    dialogDelete: false,
     zIndex: 1,
     customer:[],
     headers: [
@@ -152,6 +173,12 @@ export default {
     ],
     dessert:[]
   }),
+
+  watch: {
+    dialogDelete (val) {
+      val || this.closeDelete()
+    },
+  },
 
   mounted(){
     db.collection('customer')
@@ -177,7 +204,18 @@ export default {
           .catch((error) => {
             console.error("Error adding document: ", error);
           });
-    }
+    },
+    deleteItemConfirm (id) {
+      db.collection('customer').doc(id).delete().then(()=>this.$mount())
+      this.closeDelete()
+    },
+    deleteCustom () {
+      this.dialogDelete = true
+    },
+
+    closeDelete () {
+      this.dialogDelete = false
+    },
   }
 }
 </script>
@@ -196,7 +234,7 @@ export default {
   align-items: center;
   border-radius: 15px;
   width: 45vh;
-  height: 65vh;
+  height: 73vh;
 }
 
 .btn__two{
@@ -258,13 +296,13 @@ export default {
 @media all and (max-width: 425px) {
   .form__content{
     width: 40vh;
-    height: 62vh;
+    height: 73vh;
   }
 }
 @media all and (max-width: 370px) {
   .form__content{
     width: 35vh;
-    height: 60vh;
+    height: 73vh;
   }
 }
 

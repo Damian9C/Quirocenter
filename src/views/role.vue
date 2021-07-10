@@ -97,10 +97,21 @@
             <td><v-btn
                 class="btn__two"
                 color="red"
-                @click.prevent="deleteUser(item.id)"
+                @click.prevent="deleteUser()"
             >
               borrar
             </v-btn></td>
+            <v-dialog v-model="dialogDelete" max-width="540px">
+              <v-card>
+                <v-card-title class="text-h5">¿Seguro que quieres eliminar esta cuenta?</v-card-title>
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn color="blue darken-1" text @click="closeDelete">Cancel</v-btn>
+                  <v-btn color="blue darken-1" text @click="deleteItemConfirm(item.id)">OK</v-btn>
+                  <v-spacer></v-spacer>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
           </tr>
           </tbody>
         </template>
@@ -120,6 +131,7 @@ export default {
   data: () => ({
     overlay: false,
     zIndex: 1,
+    dialogDelete: false,
     users: [],
     items:['Administrador','Doctor','Asistente'],
   }),
@@ -135,6 +147,12 @@ export default {
         })))
   },
 
+  watch: {
+    dialogDelete (val) {
+      val || this.closeDelete()
+    },
+  },
+
   methods:{
     addUser(){
       db.collection('users').add({
@@ -147,9 +165,19 @@ export default {
             console.error("Error adding document: ", error);
           });
     },
-    deleteUser(id){
+
+    deleteItemConfirm (id) {
       db.collection('users').doc(id).delete().then(()=>this.$mount())
-    }
+      this.closeDelete()
+    },
+
+    deleteUser () {
+      this.dialogDelete = true
+    },
+
+    closeDelete () {
+      this.dialogDelete = false
+    },
   }
 }
 </script>
