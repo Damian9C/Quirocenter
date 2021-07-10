@@ -18,7 +18,7 @@
           <tbody>
           <tr
               v-for="item in desserts"
-              :key="item.name"
+              :key="item.id"
           >
             <td v-for="item in services" v-bind:key="item.id">{{ item.data.name}}</td>
             <td v-for="item in services" v-bind:key="item.id">{{ item.data.precio }}</td>
@@ -29,7 +29,6 @@
     </div>
   </div>
 </template>
-
 <script>
 import Titles from "../components/titles";
 import Navigationbar from "../components/navigationbar";
@@ -49,10 +48,8 @@ export default {
   mounted(){
     db.collection('services').get().then((r) => r.docs.map((item) => this.services.push({id:item.id, data:item.data()})))
   }
-
 }
 </script>
-
 <style scoped>
 .services__container{
   width: 77%;
@@ -65,12 +62,14 @@ export default {
     margin: 1rem 2% 5% 23%;
   }
 }
+
 @media all and (max-width: 1130px) {
   .services__container{
     width: 71%;
     margin: 1rem 2% 5% 25%;
   }
 }
+
 @media all and (max-width: 1065px) {
   .services__container{
     width: 71%;

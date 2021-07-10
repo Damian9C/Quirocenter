@@ -17,7 +17,7 @@
           :z-index="zIndex"
           :value="overlay"
       >
-        <div class="form__content">
+        <div  class="form__content">
           <titles principal-title="Añadir Nuevo Servicio"/>
           <br>
           <div>
@@ -29,6 +29,7 @@
                 background-color="#349DB4"
                 dense
                 outlined
+                v-model="name"
             ></v-text-field>
           </div>
           <div>
@@ -40,6 +41,7 @@
                 background-color="#349DB4"
                 dense
                 outlined
+                v-model="precio"
             ></v-text-field>
           </div>
           <div>
@@ -47,6 +49,7 @@
                 class="white--text"
                 color="teal"
                 @click="overlay = false"
+                @click.prevent="addUser"
             >
               añadir
             </v-btn>
@@ -54,7 +57,6 @@
         </div>
       </v-overlay>
       </div>
-
       <v-simple-table>
         <template v-slot:default>
           <thead>
@@ -75,12 +77,12 @@
               v-for="item in desserts"
               :key="item.name"
           >
-            <td>{{ item.name }}</td>
-            <td>{{ item.precio }}</td>
+            <td v-for="item in services" v-bind:key="item.id">{{ item.data.name}}</td>
+            <td v-for="item in services" v-bind:key="item.id">{{ item.data.precio }}</td>
             <td><v-btn
                 class="btn__two"
                 color="red"
-                @click="secret"
+                @click=""
             >
               borrar
             </v-btn></td>
@@ -107,28 +109,25 @@ export default {
     }],
     overlay: false,
     zIndex: 1,
+    services: [],
   }),
+  mounted(){
+    db.collection('services').get().then((r) => r.docs.map((item) => this.services.push({id:item.id, data:item.data()})))
+  },
   methods: {
-    secret() {
+    addUser() {
       db.collection("services").add({
-        first: "Ada",
-        last: "Lovelace",
-        born: 1815
+        name: this.name,
+        precio: this.precio
       })
-          .then((docRef) => {
-
-          })
+          .then(() => this.$mount())
           .catch((error) => {
             console.error("Error adding document: ", error);
           });
     }
   }
 }
-
-
-
 </script>
-
 <style scoped>
 .bottons{
   display: flex;
