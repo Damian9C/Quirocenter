@@ -116,6 +116,58 @@
               </v-card-actions>
             </v-card>
           </v-dialog>
+<!--          aqui se muestra otro dialogo-->
+          <v-dialog v-model="editCustom" max-width="540px">
+            <v-card>
+              <Titles principal-title="Editar Usuario:"/>
+              <div class="content__edit">
+                <h1>{{item.name}}</h1>
+                <br>
+                <div>
+                  <v-text-field
+                      class="thing"
+                      label="Numero"
+                      placeholder="Numero Telefonico"
+                      rounded
+                      background-color="#DADADA"
+                      dense
+                      outlined
+                      v-model="edphone"
+                  ></v-text-field>
+                </div>
+                <div>
+                  <v-text-field
+                      class="thing"
+                      label="Edad"
+                      placeholder="Edad"
+                      rounded
+                      background-color="#DADADA"
+                      dense
+                      outlined
+                      v-model="edage"
+                  ></v-text-field>
+                </div>
+                <div>
+                  <v-text-field
+                      class="thing"
+                      label="Direccion"
+                      placeholder="Direccion Completa"
+                      rounded
+                      background-color="#DADADA"
+                      dense
+                      outlined
+                      v-model="edaddress"
+                  ></v-text-field>
+                </div>
+              </div>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn color="blue darken-1" text @click="closeEdit">Cancel</v-btn>
+                <v-btn color="blue darken-1" text @click="updateCustom(item.id)">OK</v-btn>
+                <v-spacer></v-spacer>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
           <v-btn
               small
               @click="$router.push(`/customer/${item.id}`)"
@@ -126,7 +178,7 @@
           </v-btn>
           <v-btn
               small
-              @click=""
+              @click="dialogEdit()"
           >
             <v-icon>
               mdi-pencil
@@ -157,6 +209,7 @@ export default {
     search: '',
     overlay: false,
     dialogDelete: false,
+    editCustom: false,
     zIndex: 1,
     customer:[],
     headers: [
@@ -177,6 +230,9 @@ export default {
   watch: {
     dialogDelete (val) {
       val || this.closeDelete()
+    },
+    editCustom (val) {
+      val || this.closeEdit()
     },
   },
 
@@ -205,10 +261,12 @@ export default {
             console.error("Error adding document: ", error);
           });
     },
+
     deleteItemConfirm (id) {
       db.collection('customer').doc(id).delete().then(()=>this.$mount())
       this.closeDelete()
     },
+
     deleteCustom () {
       this.dialogDelete = true
     },
@@ -216,11 +274,37 @@ export default {
     closeDelete () {
       this.dialogDelete = false
     },
+
+    updateCustom(id){
+      db.collection('customer').doc(id).update({
+        phone: this.edphone,
+        age: this.edage,
+        address: this.edaddress,
+      }).then(()=>this.$mount())
+      this.closeEdit()
+    },
+
+    dialogEdit() {
+      this.editCustom = true
+    },
+
+    closeEdit(){
+      this.editCustom = false
+    },
+
+
   }
 }
 </script>
 
 <style scoped>
+.content__edit{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .bottons{
   display: flex;
   flex-direction: row;
