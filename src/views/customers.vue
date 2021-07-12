@@ -111,7 +111,7 @@
               <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn color="blue darken-1" text @click="closeDelete">Cancel</v-btn>
-                <v-btn color="blue darken-1" text @click="deleteItemConfirm(item.id)">OK</v-btn>
+                <v-btn color="blue darken-1" text @click="deleteItemConfirm()">OK</v-btn>
                 <v-spacer></v-spacer>
               </v-card-actions>
             </v-card>
@@ -121,7 +121,7 @@
             <v-card>
               <Titles principal-title="Editar Usuario:"/>
               <div class="content__edit">
-                <h1>{{item.name}}</h1>
+                <h1>{{userSelected.name}}</h1>
                 <br>
                 <div>
                   <v-text-field
@@ -163,7 +163,7 @@
               <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn color="blue darken-1" text @click="closeEdit">Cancel</v-btn>
-                <v-btn color="blue darken-1" text @click="updateCustom(item.id)">OK</v-btn>
+                <v-btn color="blue darken-1" text @click="updateCustom()">OK</v-btn>
                 <v-spacer></v-spacer>
               </v-card-actions>
             </v-card>
@@ -178,7 +178,7 @@
           </v-btn>
           <v-btn
               small
-              @click="dialogEdit()"
+              @click="dialogEdit(); userSelected = item"
           >
             <v-icon>
               mdi-pencil
@@ -186,7 +186,7 @@
           </v-btn>
           <v-btn
               small
-              @click="deleteCustom()"
+              @click="deleteCustom(); userSelected = item"
           >
             <v-icon>
               mdi-delete
@@ -224,7 +224,8 @@ export default {
       { text: 'Direccion', value: 'address' },
       { text: 'Acciones', value: 'actions', sortable: false },
     ],
-    dessert:[]
+    userSelected: "",
+
   }),
 
   watch: {
@@ -262,8 +263,8 @@ export default {
           });
     },
 
-    deleteItemConfirm (id) {
-      db.collection('customer').doc(id).delete().then(()=>this.$mount())
+    deleteItemConfirm () {
+      db.collection('customer').doc(this.userSelected.id).delete().then(()=>this.$mount())
       this.closeDelete()
     },
 
@@ -275,8 +276,8 @@ export default {
       this.dialogDelete = false
     },
 
-    updateCustom(id){
-      db.collection('customer').doc(id).update({
+    updateCustom(){
+      db.collection('customer').doc(this.userSelected.id).update({
         phone: this.telefono,
         age: this.edad,
         address: this.direccion,

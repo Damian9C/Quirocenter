@@ -73,10 +73,21 @@
                     </v-list-item>
                   </v-list>
                 </v-menu>
+                <div class="quotesCmp__newQuote">
+                  <v-btn
+                      dark
+                      class="btn__two"
+                      color="teal"
+                      @click="overlay = !overlay"
+                  >
+                    Nueva Cita
+                  </v-btn>
+                </div>
               </v-toolbar>
             </v-sheet>
             <v-sheet height="600">
               <v-calendar
+                  locale="es-Es"
                   ref="calendar"
                   v-model="focus"
                   color="primary"
@@ -135,6 +146,122 @@
       </div>
       <br/>
     </div>
+
+    <div>
+      <v-overlay
+          :z-index="zIndex"
+          :value="overlay"
+      >
+        <div class="form__content">
+          <titles principal-title="Nueva Cita"/>
+          <br/>
+          <div>
+            <v-dialog
+                ref="dialog"
+                v-model="modal"
+                :return-value.sync="date"
+                persistent
+                width="290px"
+            >
+              <template v-slot:activator="{ on, attrs }">
+                <v-text-field
+                    v-model="date"
+                    label="Seleccionar día"
+                    prepend-icon="mdi-calendar"
+                    readonly
+                    v-bind="attrs"
+                    v-on="on"
+                ></v-text-field>
+              </template>
+              <v-date-picker
+                  v-model="date"
+                  scrollable
+                  locale="es-Es"
+              >
+                <v-spacer></v-spacer>
+                <v-btn
+                    text
+                    color="primary"
+                    @click="modal = false"
+                >
+                  Cancel
+                </v-btn>
+                <v-btn
+                    text
+                    color="primary"
+                    @click="$refs.dialog.save(date)"
+                >
+                  OK
+                </v-btn>
+              </v-date-picker>
+            </v-dialog>
+          </div>
+
+          <div>
+            <v-text-field dark type="date" label="Fecha de Evento"/>
+          </div>
+
+          <div>
+            <v-dialog
+                ref="dialog"
+                v-model="modal2"
+                :return-value.sync="time"
+                persistent
+                width="290px"
+            >
+              <template v-slot:activator="{ on, attrs }">
+                <v-text-field
+                    v-model="time"
+                    label="Picker in dialog"
+                    prepend-icon="mdi-clock-time-four-outline"
+                    readonly
+                    v-bind="attrs"
+                    v-on="on"
+                ></v-text-field>
+              </template>
+              <v-time-picker
+                  v-if="modal2"
+                  v-model="time"
+                  full-width
+              >
+                <v-spacer></v-spacer>
+                <v-btn
+                    text
+                    color="primary"
+                    @click="modal2 = false"
+                >
+                  Cancel
+                </v-btn>
+                <v-btn
+                    text
+                    color="primary"
+                    @click="$refs.dialog.save(time)"
+                >
+                  OK
+                </v-btn>
+              </v-time-picker>
+            </v-dialog>
+          </div>
+
+          <br/>
+          <v-btn
+              class="white--text"
+              color="teal"
+              @click="addQuote"
+          >
+            añadir
+          </v-btn>
+          <v-btn
+              class="quotesCmp__cancel"
+              color="teal"
+              small
+              @click="overlay = false"
+          >
+            cancelar
+          </v-btn>
+        </div>
+      </v-overlay>
+    </div>
   </div>
 </template>
 
@@ -156,8 +283,19 @@ export default {
     selectedElement: null,
     selectedOpen: false,
     events: [],
-    colors: ['blue', 'indigo', 'deep-purple', 'cyan', 'green', 'orange', 'grey darken-1'],
-    names: ['Meeting', 'Holiday', 'PTO', 'Travel', 'Event', 'Birthday', 'Conference', 'Party'],
+    colors: ['blue'],
+    names: ['Cita'],
+
+    overlay: false,
+    zIndex: 1,
+
+    date: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
+    menu: false,
+    modal: false,
+
+    time: null,
+    menu2: false,
+    modal2: false,
   }),
   mounted () {
     this.$refs.calendar.checkChange()
@@ -224,6 +362,10 @@ export default {
     rnd (a, b) {
       return Math.floor((b - a + 1) * Math.random()) + a
     },
+
+    addQuote () {
+      console.log(this.date)
+    },
   },
 }
 </script>
@@ -232,6 +374,26 @@ export default {
 .quotesCmp{
   width: 77%;
   margin: 1rem 2% 5% 19%;
+}
+
+.quotesCmp__newQuote{
+  margin-left: 1rem;
+  margin-right: 0;
+}
+
+.form__content{
+  background-color: #69C9DE;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 15px;
+  width: 45vh;
+  padding-bottom: 1rem;
+}
+
+.quotesCmp__cancel{
+  margin: 12px 0 10px;
 }
 
 @media all and (max-width: 1400px) {
