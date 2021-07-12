@@ -197,50 +197,18 @@
             </v-dialog>
           </div>
 
-          <div>
-            <v-text-field dark type="date" label="Fecha de Evento"/>
+          <div class="quotesCmp__inputs">
+            <v-select
+                :items="hours"
+                label="Hora Inicio"
+            ></v-select>
           </div>
 
-          <div>
-            <v-dialog
-                ref="dialog"
-                v-model="modal2"
-                :return-value.sync="time"
-                persistent
-                width="290px"
-            >
-              <template v-slot:activator="{ on, attrs }">
-                <v-text-field
-                    v-model="time"
-                    label="Picker in dialog"
-                    prepend-icon="mdi-clock-time-four-outline"
-                    readonly
-                    v-bind="attrs"
-                    v-on="on"
-                ></v-text-field>
-              </template>
-              <v-time-picker
-                  v-if="modal2"
-                  v-model="time"
-                  full-width
-              >
-                <v-spacer></v-spacer>
-                <v-btn
-                    text
-                    color="primary"
-                    @click="modal2 = false"
-                >
-                  Cancel
-                </v-btn>
-                <v-btn
-                    text
-                    color="primary"
-                    @click="$refs.dialog.save(time)"
-                >
-                  OK
-                </v-btn>
-              </v-time-picker>
-            </v-dialog>
+          <div class="quotesCmp__inputs">
+            <v-select
+                :items="hours"
+                label="Hora Fin"
+            ></v-select>
           </div>
 
           <br/>
@@ -286,6 +254,8 @@ export default {
     colors: ['blue'],
     names: ['Cita'],
 
+    hours:[],
+
     overlay: false,
     zIndex: 1,
 
@@ -299,6 +269,8 @@ export default {
   }),
   mounted () {
     this.$refs.calendar.checkChange()
+
+    this.generateRange();
   },
   methods: {
     viewDay ({ date }) {
@@ -363,6 +335,14 @@ export default {
       return Math.floor((b - a + 1) * Math.random()) + a
     },
 
+    generateRange () {
+      let ini = 9, end = 18;
+
+      for ( let i = ini ; i <= end ; i++){
+        this.hours.push( i + ":00 hrs")
+      }
+    },
+
     addQuote () {
       console.log(this.date)
     },
@@ -388,12 +368,16 @@ export default {
   justify-content: center;
   align-items: center;
   border-radius: 15px;
-  width: 45vh;
+  width: 18rem;
   padding-bottom: 1rem;
 }
 
 .quotesCmp__cancel{
   margin: 12px 0 10px;
+}
+
+.quotesCmp__inputs{
+  width: 70%;
 }
 
 @media all and (max-width: 1400px) {
