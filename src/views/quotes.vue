@@ -155,6 +155,15 @@
         <div class="form__content">
           <titles principal-title="Nueva Cita"/>
           <br/>
+
+          <div class="quotesCmp__inputs">
+            <v-select
+                :items="customers"
+                label="Cliente"
+                v-model="selectedCustomer"
+            ></v-select>
+          </div>
+
           <div>
             <v-dialog
                 ref="dialog"
@@ -167,7 +176,7 @@
                 <v-text-field
                     v-model="date"
                     label="Seleccionar día"
-                    prepend-icon="mdi-calendar"
+                    append-icon="mdi-calendar"
                     readonly
                     v-bind="attrs"
                     v-on="on"
@@ -201,6 +210,7 @@
             <v-select
                 :items="hours"
                 label="Hora Inicio"
+                v-model="iniHour"
             ></v-select>
           </div>
 
@@ -208,6 +218,7 @@
             <v-select
                 :items="hours"
                 label="Hora Fin"
+                v-model="endHour"
             ></v-select>
           </div>
 
@@ -236,10 +247,14 @@
 <script>
 import Titles from "../components/titles";
 import Navigationbar from "../components/navigationbar";
+import {db} from "../util";
+import customers from "./customers";
 export default {
   name: "quotes",
   components: {Navigationbar, Titles},
   data: () => ({
+
+    //Configuraciones de Horario
     focus: '',
     type: 'month',
     typeToLabel: {
@@ -251,25 +266,34 @@ export default {
     selectedElement: null,
     selectedOpen: false,
     events: [],
+    firebaseEvents: [],
     colors: ['blue'],
     names: ['Cita'],
 
-    hours:[],
+    //Horario Cita
+    hours: [],
+    iniHour: "",
+    endHour: "",
 
-    overlay: false,
-    zIndex: 1,
+    //Cliente Cita
+    customer: [{
 
+    }],
+    customers: [],
+    selectedCustomer: "",
+
+    //Dia cita
     date: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
     menu: false,
     modal: false,
 
-    time: null,
-    menu2: false,
-    modal2: false,
+    overlay: false,
+    zIndex: 1,
   }),
   mounted () {
-    this.$refs.calendar.checkChange()
+    this.$refs.calendar.checkChange();
 
+    this.getCustomers();
     this.generateRange();
   },
   methods: {
@@ -306,30 +330,21 @@ export default {
       nativeEvent.stopPropagation()
     },
     updateRange ({ start, end }) {
-      const events = []
 
-      const min = new Date(`${start.date}T00:00:00`)
-      const max = new Date(`${end.date}T23:59:59`)
-      const days = (max.getTime() - min.getTime()) / 86400000
-      const eventCount = this.rnd(days, days + 20)
+      db.collection('quotes')
+          .get()
+          .then((r) => r.docs.map((item) => {
+            this.events.push({
+              start: new Date(Number(item.data().start.seconds + "000")),
+              end: new Date(Number(item.data().end.seconds + "000")),
+              name: item.data().name,
+              color: item.data().color,
+              customerName: item.data().customerName,
+              customerId: item.data().customerId,
+            });
+          }));
 
-      for (let i = 0; i < eventCount; i++) {
-        const allDay = this.rnd(0, 3) === 0
-        const firstTimestamp = this.rnd(min.getTime(), max.getTime())
-        const first = new Date(firstTimestamp - (firstTimestamp % 900000))
-        const secondTimestamp = this.rnd(2, allDay ? 288 : 8) * 900000
-        const second = new Date(first.getTime() + secondTimestamp)
-
-        events.push({
-          name: this.names[this.rnd(0, this.names.length - 1)],
-          start: first,
-          end: second,
-          color: this.colors[this.rnd(0, this.colors.length - 1)],
-          timed: !allDay,
-        })
-      }
-
-      this.events = events
+      console.log(this.firebaseEvents)
     },
     rnd (a, b) {
       return Math.floor((b - a + 1) * Math.random()) + a
@@ -339,12 +354,49 @@ export default {
       let ini = 9, end = 18;
 
       for ( let i = ini ; i <= end ; i++){
-        this.hours.push( i + ":00 hrs")
+        if (i < 10 ) {
+          this.hours.push( "0" + i + ":00")
+        }else {
+          this.hours.push( i + ":00")
+        }
       }
     },
 
     addQuote () {
-      console.log(this.date)
+      let numberIni = Date.parse(this.date + "T" + this.iniHour + ":00");
+      let dateTxtIni = new Date(numberIni);
+      let numberEnd = Date.parse(this.date + "T" + this.endHour + ":00");
+      let dateTxtEnd = new Date(numberEnd);
+
+      let filter = this.customer.filter(element => element.name === this.selectedCustomer)
+
+      db.collection("quotes").add({
+        start: dateTxtIni,
+        end: dateTxtEnd,
+        name: 'Cita',
+        color: 'blue',
+        customerName: filter[0].name,
+        customerId: filter[0].id,
+      })
+          .then(() => this.$mount())
+          .catch((error) => {
+            alert.error("Error adding document: ", error);
+          });
+    },
+
+    getCustomers(){
+      db.collection('customer')
+          .get()
+          .then((r) => r.docs.map((item) => {
+            this.customer.push({
+              id:item.id,
+              name: item.data().name,
+              phone: item.data().phone,
+              age: item.data().age,
+              address: item.data().address,
+            });
+            this.customers.push(item.data().name);
+          }));
     },
   },
 }
@@ -368,7 +420,7 @@ export default {
   justify-content: center;
   align-items: center;
   border-radius: 15px;
-  width: 18rem;
+  width: 20rem;
   padding-bottom: 1rem;
 }
 
@@ -377,7 +429,7 @@ export default {
 }
 
 .quotesCmp__inputs{
-  width: 70%;
+  width: 62%;
 }
 
 @media all and (max-width: 1400px) {
