@@ -92,7 +92,7 @@
             <td><v-btn
                 class="btn__two"
                 color="red"
-                @click.prevent="deleteServe()"
+                @click.prevent="deleteServe(); userSelected = item"
             >
               borrar
             </v-btn></td>
@@ -102,7 +102,7 @@
                 <v-card-actions>
                   <v-spacer></v-spacer>
                   <v-btn color="blue darken-1" text @click="closeDelete">Cancel</v-btn>
-                  <v-btn color="blue darken-1" text @click="deleteItemConfirm(item.id)">OK</v-btn>
+                  <v-btn color="blue darken-1" text @click="deleteItemConfirm()">OK</v-btn>
                   <v-spacer></v-spacer>
                 </v-card-actions>
               </v-card>
@@ -127,6 +127,7 @@ export default {
     zIndex: 1,
     dialogDelete: false,
     services: [],
+    userSelected: null,
   }),
 
   watch: {
@@ -157,8 +158,8 @@ export default {
           });
     },
 
-    deleteItemConfirm (id) {
-      db.collection('services').doc(id).delete().then(()=>this.$mount())
+    deleteItemConfirm () {
+      db.collection('services').doc(this.userSelected.id).delete().then(()=>this.$mount())
       this.closeDelete()
     },
 

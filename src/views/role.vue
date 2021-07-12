@@ -97,7 +97,7 @@
             <td><v-btn
                 class="btn__two"
                 color="red"
-                @click.prevent="deleteUser()"
+                @click.prevent="deleteUser(); userSelected = item"
             >
               borrar
             </v-btn></td>
@@ -107,7 +107,7 @@
                 <v-card-actions>
                   <v-spacer></v-spacer>
                   <v-btn color="blue darken-1" text @click="closeDelete">Cancel</v-btn>
-                  <v-btn color="blue darken-1" text @click="deleteItemConfirm(item.id)">OK</v-btn>
+                  <v-btn color="blue darken-1" text @click="deleteItemConfirm()">OK</v-btn>
                   <v-spacer></v-spacer>
                 </v-card-actions>
               </v-card>
@@ -134,6 +134,7 @@ export default {
     dialogDelete: false,
     users: [],
     items:['Administrador','Doctor','Asistente'],
+    userSelected: null,
   }),
 
   mounted(){
@@ -166,8 +167,8 @@ export default {
           });
     },
 
-    deleteItemConfirm (id) {
-      db.collection('users').doc(id).delete().then(()=>this.$mount())
+    deleteItemConfirm () {
+      db.collection('users').doc(this.userSelected.id).delete().then(()=>this.$mount())
       this.closeDelete()
     },
 
