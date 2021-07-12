@@ -70,8 +70,7 @@ export default {
           this.$router.push({name: 'services'});
         })
             .catch((error) => {
-              let errorCode = error.code;
-              let errorMessage = error.message;
+              alert(error.message);
             });
       }else{
         this.error='todos los campos son requeridos';

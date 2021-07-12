@@ -147,7 +147,7 @@ export default {
       })
           .then(() => this.$mount())
           .catch((error) => {
-            console.error("Error adding document: ", error);
+            alert.error("Error adding document: ", error);
           });
     },
 

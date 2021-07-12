@@ -17,12 +17,13 @@
           background-color="#CFCFCF"
           dense
           outlined
+          v-model="name"
       ></v-text-field>
       <v-btn
           color="#CFCFCF"
           elevation="1"
           medium
-          to=" "
+          v-on:click="forgotpassword"
       > Enviar </v-btn>
       <br>
       <v-icon  @click="$router.push(`/`)">mdi-arrow-left-circle</v-icon>
@@ -32,8 +33,25 @@
 </template>
 
 <script>
+import firebase from "firebase";
 export default {
-  name: "forgotPass"
+  data (){
+    return{
+      name:''
+    }
+  },
+  name: "forgotPass",
+  methods:{
+    forgotpassword(){
+      firebase.auth().sendPasswordResetEmail(this.name)
+      .then(()=>{
+        alert('se ha enviado un mensaje a tu correo electronico')
+      }).catch((error)=>{
+        alert(error.message)
+      })
+    },
+  }
+
 }
 </script>
 
