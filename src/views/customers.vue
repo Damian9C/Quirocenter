@@ -21,7 +21,7 @@
             <br>
             <div>
               <v-text-field
-                  class="thing"
+                  id="name"
                   label="Nombre"
                   placeholder="Nombre Completo"
                   rounded
@@ -33,7 +33,7 @@
             </div>
             <div>
               <v-text-field
-                  class="thing"
+                  id="phone"
                   label="Numero"
                   placeholder="Numero Telefonico"
                   rounded
@@ -45,7 +45,7 @@
             </div>
             <div>
               <v-text-field
-                  class="thing"
+                  id="age"
                   label="Edad"
                   placeholder="Edad"
                   rounded
@@ -57,7 +57,7 @@
             </div>
             <div>
               <v-text-field
-                  class="thing"
+                  id="address"
                   label="Direccion"
                   placeholder="Direccion Completa"
                   rounded
@@ -69,7 +69,7 @@
           </div>
           <div>
             <v-btn
-                class="white--text"
+                id="botton"
                 color="teal"
                 @click="overlay = false"
                 @click.prevent="addCustom"
@@ -132,7 +132,7 @@
                       background-color="#DADADA"
                       dense
                       outlined
-                      v-model="edphone"
+                      v-model="telefono"
                   ></v-text-field>
                 </div>
                 <div>
@@ -144,7 +144,7 @@
                       background-color="#DADADA"
                       dense
                       outlined
-                      v-model="edage"
+                      v-model="edad"
                   ></v-text-field>
                 </div>
                 <div>
@@ -156,7 +156,7 @@
                       background-color="#DADADA"
                       dense
                       outlined
-                      v-model="edaddress"
+                      v-model="direccion"
                   ></v-text-field>
                 </div>
               </div>
@@ -277,9 +277,9 @@ export default {
 
     updateCustom(id){
       db.collection('customer').doc(id).update({
-        phone: this.edphone,
-        age: this.edage,
-        address: this.edaddress,
+        phone: this.telefono,
+        age: this.edad,
+        address: this.direccion,
       }).then(()=>this.$mount())
       this.closeEdit()
     },

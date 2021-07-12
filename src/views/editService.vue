@@ -85,10 +85,10 @@
           <tbody>
           <tr
               v-for="item in services"
-              :key="item.name"
+              :key="item.id"
           >
-            <td>{{ item.data.name }}</td>
-            <td>$ {{ item.data.precio }}</td>
+            <td>{{ item.name }}</td>
+            <td>$ {{ item.precio }}</td>
             <td><v-btn
                 class="btn__two"
                 color="red"
@@ -136,14 +136,20 @@ export default {
   },
 
   mounted(){
-    db.collection('services').get().then((r) => r.docs.map((item) => this.services.push({id:item.id, data:item.data()})))
+    db.collection('services')
+        .get()
+        .then((r) => r.docs.map((item) => this.services.push({
+          id: item.id,
+          name: item.data().name,
+          precio: item.data().precio,
+        })))
   },
 
   methods: {
     addServe() {
       db.collection('services').add({
         name: this.name,
-        precio: this.precio
+        precio: this.precio,
       })
           .then(() => this.$mount())
           .catch((error) => {

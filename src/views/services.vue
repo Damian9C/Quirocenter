@@ -18,7 +18,7 @@
           <tbody>
           <tr
               v-for="item in services"
-              :key="item.name"
+              :key="item.id"
           >
             <td>{{ item.data.name}}</td>
             <td> $ {{ item.data.precio }}</td>
