@@ -557,7 +557,7 @@ export default {
       let dateTxtEnd = new Date(numberEnd);
 
       if ( this.iniHour === null || this.endHour === null ){
-        console.log('entre')
+
         this.dialogErrorUpdate = true;
       }else {
         db.collection('quotes').doc(item.id).update({
@@ -565,9 +565,9 @@ export default {
           end: dateTxtEnd,
           name: 'Cita',
           color: 'blue',
-          customerName: item.name,
-          customerId: item.id,
-        }).then(()=>this.fetchFirebaseQuotes())
+          customerName: item.customerName,
+          customerId: item.customerId,
+        }).then(()=>this.fetchFirebaseQuotes()).finally(()=> this.updateRange())
 
         this.dialogEdit = false;
       }
@@ -589,7 +589,9 @@ export default {
     },
 
     deleteEvent(id){
-      db.collection('quotes').doc(id).delete().then(()=>this.fetchFirebaseQuotes())
+      db.collection('quotes').doc(id).delete().then(()=> {
+        this.fetchFirebaseQuotes()
+      }).finally(()=> this.updateRange())
       this.dialogDelete = false;
     },
 

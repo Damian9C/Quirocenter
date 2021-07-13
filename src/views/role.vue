@@ -12,7 +12,7 @@
 
             @click.prevent="overlay = !overlay"
         >
-          Nueva Contraseña
+          Cambiar Contraseña
         </v-btn>
       </div>
       <v-simple-table>
