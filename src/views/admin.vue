@@ -19,7 +19,13 @@ import Titles from "../components/titles";
 import Navigationbar from "../components/navigationbar";
 export default {
   name: "admin",
-  components: {Navigationbar, Titles}
+  components: {Navigationbar, Titles},
+  mounted() {
+    let variable = this.$store.state.user
+    if (variable !== 'Administrador'){
+      this.$router.push('/services')
+    }
+  }
 }
 </script>
 

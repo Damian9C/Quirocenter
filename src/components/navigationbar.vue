@@ -55,7 +55,7 @@
             </v-list-item-content>
           </v-list-item>
 
-          <v-list-item to="/admin">
+          <v-list-item to="/admin" v-show="isVisible">
             <v-list-item-icon>
               <v-icon>mdi-cog-outline</v-icon>
             </v-list-item-icon>
@@ -67,7 +67,7 @@
 
           <v-divider/><br/>
 
-          <v-list-item @click="">
+          <v-list-item>
             <v-list-item-icon>
               <v-icon>mdi-logout</v-icon>
             </v-list-item-icon>
@@ -92,6 +92,7 @@ export default {
   data: () => ({
     drawer: false,
     group: null,
+    isVisible: false,
   }),
   methods:{
     logout(){
@@ -100,6 +101,9 @@ export default {
       })
     }
   },
+  mounted() {
+
+  }
 }
 </script>
 

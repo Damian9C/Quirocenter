@@ -118,6 +118,10 @@ export default {
           cuenta: item.data().cuenta,
           email:item.data().email,
         })))
+    let variable = this.$store.state.user
+    if (variable !== 'Administrador'){
+      this.$router.push('/services')
+    }
   },
 
   watch: {

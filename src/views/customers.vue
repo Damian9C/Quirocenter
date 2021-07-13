@@ -9,6 +9,7 @@
             class="btn__two"
             color="teal"
             @click="overlay = !overlay"
+            v-show="visible"
         >
           agregar
         </v-btn>
@@ -179,6 +180,7 @@
           <v-btn
               small
               @click="dialogEdit(); userSelected = item"
+              v-show="visible"
           >
             <v-icon>
               mdi-pencil
@@ -187,6 +189,7 @@
           <v-btn
               small
               @click="deleteCustom(); userSelected = item"
+              v-show="visible"
           >
             <v-icon>
               mdi-delete
@@ -226,6 +229,7 @@ export default {
     ],
     userSelected: "",
 
+    visible: false,
   }),
 
   watch: {
@@ -293,7 +297,13 @@ export default {
       this.editCustom = false
     },
 
+    isVisible(){
+      let variable = this.$store.state.user
 
+      if (variable === 'Administrador' || variable === 'Asistente'){
+        this.visible = true;
+      }
+    }
   }
 }
 </script>

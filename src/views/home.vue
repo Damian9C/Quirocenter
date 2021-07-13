@@ -54,12 +54,16 @@
 
 <script>
 import firebase from 'firebase';
+import {mapActions, mapMutations} from "vuex";
+import {db} from "../util";
 export default {
   data (){
     return{
       name: '',
       password: '',
-      error: ''
+      error: '',
+      user: '',
+      dataUser:[],
     }
   },
   name: "home",
@@ -67,6 +71,9 @@ export default {
     register(){
       if (this.name && this.password){
         firebase.auth().signInWithEmailAndPassword(this.name,this.password).then((userCredential) => {
+
+          // let variable = this.$store.state.user
+          this.getUsers()
           this.$router.push({name: 'services'});
         })
             .catch((error) => {
@@ -75,8 +82,20 @@ export default {
       }else{
         this.error='todos los campos son requeridos';
       }
-    }
-  }
+    },
+
+    ...mapActions(['setUserData']),
+
+    getUsers(){
+      db.collection('users')
+          .get()
+          .then((r) => r.docs.map((item) => {
+            if (this.name === item.data().email ){
+              this.setUserData(item.data().cuenta)
+            }
+          }))
+    },
+  },
 }
 </script>
 

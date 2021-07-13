@@ -144,6 +144,11 @@ export default {
           name: item.data().name,
           precio: item.data().precio,
         })))
+
+    let variable = this.$store.state.user
+    if (variable !== 'Administrador'){
+      this.$router.push('/services')
+    }
   },
 
   methods: {
