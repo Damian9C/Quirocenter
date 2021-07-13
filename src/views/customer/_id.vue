@@ -9,7 +9,6 @@
         <br/>
         <h1 class="customer--title">Nombre</h1>
         <p class="customer--txt">{{ customer.name}}</p>
-
         <h1 class="customer--title">Telefono</h1>
         <p class="customer--txt">{{ customer.phone }}</p>
 
@@ -210,7 +209,7 @@ import Navigationbar from "../../components/navigationbar";
 import Titles from "../../components/titles";
 import {db} from "../../util";
 export default {
-  name: "_id",
+  name: "id",
   components: {Navigationbar, Titles},
   data(){
     return{
@@ -229,25 +228,29 @@ export default {
     }
   },
   mounted() {
-    let routeId = this.$route.params.id
-
-    db.collection('customer')
-        .get()
-        .then((r) => r.docs.map((item) => {
-          if ( routeId === item.id ){
-            console.log(item)
-            this.customer = ({
-              id:item.id,
-              name: item.data().name,
-              phone: item.data().phone,
-              age: item.data().age,
-              address: item.data().address,
-              quotes: item.data().quotes,
-            })
-          }
-        }))
+    this.fetchFirebaseId();
   },
   methods: {
+
+    fetchFirebaseId(){
+      let routeId = this.$route.params.id
+
+      db.collection('customer')
+          .get()
+          .then((r) => r.docs.map((item) => {
+            if ( routeId === item.id ){
+              this.customer = ({
+                id:item.id,
+                name: item.data().name,
+                phone: item.data().phone,
+                age: item.data().age,
+                address: item.data().address,
+                quotes: item.data().quotes,
+              })
+            }
+          }))
+    },
+
     addCustom(){
       let quote = {
         date: this.date,
@@ -255,7 +258,6 @@ export default {
         details: this.details,
       }
       this.customer.quotes.push( quote )
-
       let data = {
         phone: this.customer.phone,
         age: this.customer.age,
@@ -263,7 +265,7 @@ export default {
         quotes: this.customer.quotes,
       }
 
-      db.collection('customer').doc(this.customer.id).update(data).then(()=>this.$mount())
+      db.collection('customer').doc(this.customer.id).update(data).then(()=>this.fetchFirebaseId())
       this.overlay = false;
     },
     deleteItemConfirm() {
@@ -277,7 +279,7 @@ export default {
         quotes: this.customer.quotes,
       }
 
-      db.collection('customer').doc(this.customer.id).update(data).then(()=>this.$mount())
+      db.collection('customer').doc(this.customer.id).update(data).then(()=>this.fetchFirebaseId())
       this.dialogDelete = false;
     },
   },

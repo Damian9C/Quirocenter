@@ -71,8 +71,6 @@ export default {
     register(){
       if (this.name && this.password){
         firebase.auth().signInWithEmailAndPassword(this.name,this.password).then((userCredential) => {
-
-          // let variable = this.$store.state.user
           this.getUsers()
           this.$router.push({name: 'services'});
         })

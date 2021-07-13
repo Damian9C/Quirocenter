@@ -40,62 +40,62 @@
               <H1> Historial Clinico </H1>
               <p>
                 <label>Fecha:  </label>
-                <spam>{{ fecha}}</spam>
+                <span>{{ fecha}}</span>
               </p>
               <p>
                 <label>Nombre Completo:  </label>
-                <spam>{{ fullname}} </spam>
+                <span>{{ fullname}} </span>
               </p>
               <p>
                 <label>Direccion:  </label>
-                <spam>{{address}}</spam>
+                <span>{{address}}</span>
               </p>
               <p>
                 <label>Telefono:  </label>
-                <spam>{{phone}}</spam>
+                <span>{{phone}}</span>
               </p>
               <p>
                 <label>Ocupacion:  </label>
-                <spam>{{ocupacion}}</spam>
+                <span>{{ocupacion}}</span>
               </p>
               <p>
                 <label>Estado civil:  </label>
-                <spam>{{edocivil}}</spam>
+                <span>{{edocivil}}</span>
               </p>
               <p>
                 <label>Edad:  </label>
-                <spam>{{edad}}</spam>
+                <span>{{edad}}</span>
               </p>
             </section>
             <section>
               <H1>Signos Vitales</H1>
               <p>
                 <label>F/C:  </label>
-                <spam>{{fc}}</spam>
+                <span>{{fc}}</span>
               </p>
               <p>
                 <label>T/C:  </label>
-                <spam>{{tc}}</spam>
+                <span>{{tc}}</span>
               </p>
               <p>
                 <label>F/R:  </label>
-                <spam>{{fr}}</spam>
+                <span>{{fr}}</span>
               </p>
               <p>
                 <label>T/A:  </label>
-                <spam>{{ta}}</spam>
+                <span>{{ta}}</span>
               </p>
               <p>
                 <label>Talla:  </label>
-                <spam>{{talla}}</spam>
+                <span>{{talla}}</span>
               </p>
               <p>
                 <label>Peso:  </label>
-                <spam>{{peso}}</spam>
+                <span>{{peso}}</span>
               </p>
               <p>
                 <label>IMC:  </label>
-                <spam>{{imc}}</spam>
+                <span>{{imc}}</span>
               </p>
             </section>
         </div>
@@ -106,58 +106,58 @@
               <H1>APHF</H1>
               <p>
                 <label>Deabetes Mellitus:  </label>
-                <spam>{{deabetes}}</spam>
+                <span>{{deabetes}}</span>
               </p>
               <p>
                 <label>Hipotención:  </label>
-                <spam>{{hipo}}</spam>
+                <span>{{hipo}}</span>
               </p>
               <p>
                 <label>Cancer:  </label>
-                <spam>{{cancer}}</spam>
+                <span>{{cancer}}</span>
               </p>
               <p>
                 <label>Trigliseridos:  </label>
-                <spam>{{trigli}}</spam>
+                <span>{{trigli}}</span>
               </p>
               <p>
                 <label>Alergias:  </label>
-                <spam>{{alerg}}</spam>
+                <span>{{alerg}}</span>
               </p>
               <p>
                 <label>Hipertención:  </label>
-                <spam>{{hiperten}}</spam>
+                <span>{{hiperten}}</span>
               </p>
               <p>
                 <label>Artritis Reumatoide:  </label>
-                <spam>{{reuma}}</spam>
+                <span>{{reuma}}</span>
               </p>
               <p>
                 <label>Obesidad:  </label>
-                <spam>{{obesidad}}</spam>
+                <span>{{obesidad}}</span>
               </p>
               <p>
                 <label>Colesterol:  </label>
-                <spam>{{coleste}}</spam>
+                <span>{{coleste}}</span>
               </p>
             </section>
             <section>
               <h1>APNP</h1>
               <p>
                 <label>Alcoholismo:  </label>
-                <spam>{{alco}}</spam>
+                <span>{{alco}}</span>
               </p>
               <p>
                 <label>Drogas:  </label>
-                <spam>{{drung}}</spam>
+                <span>{{drung}}</span>
               </p>
               <p>
                 <label>Tabaco:  </label>
-                <spam>{{tabaco}}</spam>
-              </p>
+                <span>{{tabaco}}</span>
+              </p>n
               <p>
                 <label>Medicamentos:  </label>
-                <spam>{{medica}}</spam>
+                <span>{{medica}}</span>
               </p>
             </section>
           </div>
@@ -168,15 +168,15 @@
               <h1>APP (lo que tiene el paciente)</h1>
               <p>
                 <label>¿Cuándo comenzo con el dolor?:  </label>
-                <spam>{{dolor}}</spam>
+                <span>{{dolor}}</span>
               </p>
               <p>
                 <label>¿Cuándo fue su última caída?:  </label>
-                <spam>{{caida}}</spam>
+                <span>{{caida}}</span>
               </p>
               <p>
                 <label>Motivo de la visita:  </label>
-                <spam>{{visit}}</spam>
+                <span>{{visit}}</span>
               </p>
               <p>
                 <label>T.P, agraga mas observaciones:  </label><br>
@@ -188,23 +188,23 @@
               <H3>(antecedentes ginecológicos obstetras)</H3>
               <p>
                 <label>Gestaciones:  </label>
-                <spam>{{gest}}</spam>
+                <span>{{gest}}</span>
               </p>
               <p>
                 <label>Partos:  </label>
-                <spam>{{parto}}</spam>
+                <span>{{parto}}</span>
               </p>
               <p>
                 <label>Cesarias:  </label>
-                <spam>{{cesaria}}</spam>
+                <span>{{cesaria}}</span>
               </p>
               <p>
                 <label>Abortos:  </label>
-                <spam>{{aborto}}</spam>
+                <span>{{aborto}}</span>
               </p>
               <p>
                 <label>FUR:  </label>
-                <spam>{{fur}}</spam>
+                <span>{{fur}}</span>
               </p>
             </section>
           </div>

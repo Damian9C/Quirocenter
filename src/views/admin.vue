@@ -78,9 +78,7 @@ export default {
 
     generateRange () {
       let ini = 1, end = 24;
-
       for ( let i = ini ; i <= end ; i++ ){
-        console.log(i)
         if (i < 10 ) {
           this.hours.push( "0" + i + ":00")
         }else {

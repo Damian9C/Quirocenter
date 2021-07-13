@@ -138,11 +138,11 @@ export default {
 
         user.updatePassword(newPassword).then(() => {
         }).catch((error) => {
-          console.log(error)
+          alert(error)
         });
 
       }catch (e) {
-        console.log(e)
+        alert(e)
       }
     },
   }

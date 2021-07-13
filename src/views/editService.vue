@@ -128,6 +128,8 @@ export default {
     dialogDelete: false,
     services: [],
     userSelected: null,
+    precio:'',
+    name:'',
   }),
 
   watch: {
@@ -137,18 +139,7 @@ export default {
   },
 
   mounted(){
-    db.collection('services')
-        .get()
-        .then((r) => r.docs.map((item) => this.services.push({
-          id: item.id,
-          name: item.data().name,
-          precio: item.data().precio,
-        })))
-
-    let variable = this.$store.state.user
-    if (variable !== 'Administrador'){
-      this.$router.push('/services')
-    }
+    this.fechFirebaseServices();
   },
 
   methods: {
@@ -157,14 +148,34 @@ export default {
         name: this.name,
         precio: this.precio,
       })
-          .then(() => this.$mount())
+          .then(() => this.fechFirebaseServices())
           .catch((error) => {
             alert.error("Error adding document: ", error);
           });
     },
 
+    fechFirebaseServices(){
+      this.services = []
+      db.collection('services')
+          .get()
+          .then((r) => r.docs.map((item) => {
+            this.services.push({
+              id: item.id,
+              name: item.data().name,
+              precio: item.data().precio,
+            })
+          }))
+
+      let variable = this.$store.state.user
+      if (variable !== 'Administrador'){
+        this.$router.push('/services')
+      }
+    },
+
     deleteItemConfirm () {
-      db.collection('services').doc(this.userSelected.id).delete().then(()=>this.$mount())
+      db.collection('services').doc(this.userSelected.id).delete().then(()=>{
+        this.fechFirebaseServices()
+      })
       this.closeDelete()
     },
 

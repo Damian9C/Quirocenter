@@ -214,6 +214,13 @@ export default {
     dialogDelete: false,
     editCustom: false,
     zIndex: 1,
+    name:'',
+    age:'',
+    phone:'',
+    address:'',
+    telefono:'',
+    edad:'',
+    direccion:'',
     customer:[],
     headers: [
       {
@@ -227,7 +234,13 @@ export default {
       { text: 'Direccion', value: 'address' },
       { text: 'Acciones', value: 'actions', sortable: false },
     ],
-    userSelected: "",
+    userSelected: {
+      phone: '',
+      age: '',
+      address: '',
+      name: '',
+      quotes: [],
+    },
 
     visible: false,
   }),
@@ -242,17 +255,9 @@ export default {
   },
 
   mounted(){
-    db.collection('customer')
-        .get()
-        .then((r) => r.docs.map((item) => this.customer.push({
-          id:item.id,
-          name: item.data().name,
-          phone: item.data().phone,
-          age: item.data().age,
-          address: item.data().address,
-        })))
-    this.isVisible()
+    this.fetchFirebaseCustomer();
   },
+
 
   methods: {
     addCustom() {
@@ -263,14 +268,15 @@ export default {
         address: this.address,
         quotes: [],
       })
-          .then(() => this.$mount())
+          .then(() => this.fetchFirebaseCustomer())
           .catch((error) => {
             alert.error("Error adding document: ", error);
           });
     },
 
+
     deleteItemConfirm () {
-      db.collection('customer').doc(this.userSelected.id).delete().then(()=>this.$mount())
+      db.collection('customer').doc(this.userSelected.id).delete().then(()=>this.fetchFirebaseCustomer())
       this.closeDelete()
     },
 
@@ -284,12 +290,12 @@ export default {
 
     updateCustom(){
       db.collection('customer').doc(this.userSelected.id).update({
-        phone: this.phone,
-        age: this.age,
-        address: this.direction,
+        phone: this.telefono,
+        age: this.edad,
+        address: this.direccion,
         name: this.userSelected.name,
         quotes: this.userSelected.quotes,
-      }).then(()=>this.$mount())
+      }).then(()=>this.fetchFirebaseCustomer())
       this.closeEdit()
     },
 
@@ -307,7 +313,22 @@ export default {
       if (variable === 'Administrador' || variable === 'Asistente'){
         this.visible = true;
       }
-    }
+    },
+
+    fetchFirebaseCustomer(){
+      this.customer=[];
+      db.collection('customer')
+          .get()
+          .then((r) => r.docs.map((item) => this.customer.push({
+            id:item.id,
+            name: item.data().name,
+            phone: item.data().phone,
+            age: item.data().age,
+            address: item.data().address,
+            quotes: item.data().quotes | [],
+          })))
+      this.isVisible()
+    },
   }
 }
 </script>

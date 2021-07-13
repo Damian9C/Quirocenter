@@ -438,13 +438,17 @@ export default {
   }),
 
   mounted () {
-    this.$refs.calendar.checkChange();
-
-    this.getHours();
-    this.getCustomers();
+    this.fetchFirebaseQuotes();
   },
 
   methods: {
+
+    fetchFirebaseQuotes(){
+      this.$refs.calendar.checkChange();
+      this.getHours();
+      this.getCustomers();
+    },
+
     viewDay ({ date }) {
       this.focus = date
       this.type = 'day'
@@ -505,9 +509,7 @@ export default {
 
     generateRange () {
       let ini = parseInt(this.clock[0].ini), end = parseInt(this.clock[0].end);
-
       for ( let i = ini ; i <= end ; i++ ){
-        console.log(i)
         if (i < 10 ) {
           this.hours.push( "0" + i + ":00")
         }else {
@@ -524,7 +526,6 @@ export default {
 
       let filter = this.customer.filter(element => element.name === this.selectedCustomer)
 
-      this.dialogError = true;
       if ( this.iniHour === null || this.endHour === null ){
         this.dialogError = true;
       }else {
@@ -536,8 +537,14 @@ export default {
           customerName: filter[0].name,
           customerId: filter[0].id,
         })
-            .then(() => this.$mount())
+            .then(() => {
+              this.overlay=false
+              this.fetchFirebaseQuotes()
+              this.updateRange()
+            })
+
             .catch((error) => {
+              console.log(error)
               alert.error("Error adding document: ", error);
             });
       }
@@ -549,8 +556,8 @@ export default {
       let numberEnd = Date.parse(this.date + "T" + this.endHour + ":00");
       let dateTxtEnd = new Date(numberEnd);
 
-      this.dialogError = true;
       if ( this.iniHour === null || this.endHour === null ){
+        console.log('entre')
         this.dialogErrorUpdate = true;
       }else {
         db.collection('quotes').doc(item.id).update({
@@ -560,7 +567,7 @@ export default {
           color: 'blue',
           customerName: item.name,
           customerId: item.id,
-        }).then(()=>this.$mount())
+        }).then(()=>this.fetchFirebaseQuotes())
 
         this.dialogEdit = false;
       }
@@ -582,7 +589,7 @@ export default {
     },
 
     deleteEvent(id){
-      db.collection('quotes').doc(id).delete().then(()=>this.$mount())
+      db.collection('quotes').doc(id).delete().then(()=>this.fetchFirebaseQuotes())
       this.dialogDelete = false;
     },
 
