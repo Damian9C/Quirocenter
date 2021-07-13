@@ -1,5 +1,15 @@
 <template>
   <div>
+    <v-btn
+        class="btn"
+        color="#2DA4D9"
+        dark
+        elevation="3"
+        x-large
+        @click="generateReport"
+    >
+      Generar Responsiva
+    </v-btn>
     <vue-html2pdf
         :show-layout="false"
         :float-layout="true"
@@ -17,7 +27,7 @@
     >
       <section slot="pdf-content">
         <div class="header">
-          <img src="@/assets/logo.jpg" alt="logo" class="primary" width="150" height="150">
+          <img src="@/assets/logo.jpg" alt="logo" class="primary" width="140" height="140">
           <div class="secundar">
             <h1>Quirocenter</h1>
             <hr width="250px" style="background-color: black">
@@ -29,63 +39,63 @@
             <section>
               <H1> Historial Clinico </H1>
               <p>
-                <label>Fecha:</label>
-                <input type="date" >
+                <label>Fecha:  </label>
+                <spam>{{ fecha}}</spam>
               </p>
               <p>
-                <label>Nombre Completo:</label>
-                <input type="text" >
+                <label>Nombre Completo:  </label>
+                <spam>{{ fullname}} </spam>
               </p>
               <p>
-                <label>Direccion:</label>
-                <input type="text" >
+                <label>Direccion:  </label>
+                <spam>{{address}}</spam>
               </p>
               <p>
-                <label>Telefono:</label>
-                <input type="text" >
+                <label>Telefono:  </label>
+                <spam>{{phone}}</spam>
               </p>
               <p>
-                <label>Ocupacion:</label>
-                <input type="text" >
+                <label>Ocupacion:  </label>
+                <spam>{{ocupacion}}</spam>
               </p>
               <p>
-                <label>Estado civil:</label>
-                <input type="text" >
+                <label>Estado civil:  </label>
+                <spam>{{edocivil}}</spam>
               </p>
               <p>
-                <label>Edad:</label>
-                <input type="text" >
+                <label>Edad:  </label>
+                <spam>{{edad}}</spam>
               </p>
             </section>
             <section>
               <H1>Signos Vitales</H1>
               <p>
-                <label>F/C:</label>
-                <input type="text" >
+                <label>F/C:  </label>
+                <spam>{{fc}}</spam>
               </p>
               <p>
-                <label>T/C:</label>
-                <input type="text" >
+                <label>T/C:  </label>
+                <spam>{{tc}}</spam>
               </p>
               <p>
-                <label>F/R:</label>
-                <input type="text" >
+                <label>F/R:  </label>
+                <spam>{{fr}}</spam>
               </p>
               <p>
-                <label>T/A:</label>
-                <input type="text" >
+                <label>T/A:  </label>
+                <spam>{{ta}}</spam>
               </p>
               <p>
-                <label>Talla:</label>
-                <input type="text" >
+                <label>Talla:  </label>
+                <spam>{{talla}}</spam>
               </p>
               <p>
-                <label>Peso</label>
-                <input type="text" >
+                <label>Peso:  </label>
+                <spam>{{peso}}</spam>
               </p>
               <p>
-                <label>IMC:</label>
-                <input type="text" >
+                <label>IMC:  </label>
+                <spam>{{imc}}</spam>
               </p>
             </section>
         </div>
@@ -95,59 +105,59 @@
             <section>
               <H1>APHF</H1>
               <p>
-                <label>Deabetes Mellitus</label>
-                <input type="text">
+                <label>Deabetes Mellitus:  </label>
+                <spam>{{deabetes}}</spam>
               </p>
               <p>
-                <label>Hipotención</label>
-                <input type="text">
+                <label>Hipotención:  </label>
+                <spam>{{hipo}}</spam>
               </p>
               <p>
-                <label>Cancer</label>
-                <input type="text">
+                <label>Cancer:  </label>
+                <spam>{{cancer}}</spam>
               </p>
               <p>
-                <label>Trigliseridos</label>
-                <input type="text">
+                <label>Trigliseridos:  </label>
+                <spam>{{trigli}}</spam>
               </p>
               <p>
-                <label>Alergias</label>
-                <input type="text">
+                <label>Alergias:  </label>
+                <spam>{{alerg}}</spam>
               </p>
               <p>
-                <label>Hipertención</label>
-                <input type="text">
+                <label>Hipertención:  </label>
+                <spam>{{hiperten}}</spam>
               </p>
               <p>
-                <label>Artritis Reumatoide</label>
-                <input type="text">
+                <label>Artritis Reumatoide:  </label>
+                <spam>{{reuma}}</spam>
               </p>
               <p>
-                <label>Obesidad</label>
-                <input type="text">
+                <label>Obesidad:  </label>
+                <spam>{{obesidad}}</spam>
               </p>
               <p>
-                <label>Colesterol</label>
-                <input type="text">
+                <label>Colesterol:  </label>
+                <spam>{{coleste}}</spam>
               </p>
             </section>
             <section>
               <h1>APNP</h1>
               <p>
-                <label>Alcoholismo</label>
-                <input type="text">
+                <label>Alcoholismo:  </label>
+                <spam>{{alco}}</spam>
               </p>
               <p>
-                <label>Drogas</label>
-                <input type="text">
+                <label>Drogas:  </label>
+                <spam>{{drung}}</spam>
               </p>
               <p>
-                <label>Tabaco</label>
-                <input type="text">
+                <label>Tabaco:  </label>
+                <spam>{{tabaco}}</spam>
               </p>
               <p>
-                <label>Medicamentos</label>
-                <input type="text">
+                <label>Medicamentos:  </label>
+                <spam>{{medica}}</spam>
               </p>
             </section>
           </div>
@@ -157,44 +167,44 @@
             <section>
               <h1>APP (lo que tiene el paciente)</h1>
               <p>
-                <label>¿Cuándo comenzo con el dolor?</label>
-                <input type="date">
+                <label>¿Cuándo comenzo con el dolor?:  </label>
+                <spam>{{dolor}}</spam>
               </p>
               <p>
-                <label>¿Cuándo fue su última caída?</label>
-                <input type="date">
+                <label>¿Cuándo fue su última caída?:  </label>
+                <spam>{{caida}}</spam>
               </p>
               <p>
-                <label>Motivo de la visita</label>
-                <input type="txt">
+                <label>Motivo de la visita:  </label>
+                <spam>{{visit}}</spam>
               </p>
               <p>
-                <label>T.P, agraga mas observaciones</label><br>
-                <textarea cols="30" rows="3" placeholder="comentarios"></textarea>
+                <label>T.P, agraga mas observaciones:  </label><br>
+                <textarea cols="30" rows="3" placeholder="comentarios"> {{observ}}</textarea>
               </p>
             </section>
             <section>
               <H1>AGO</H1>
               <H3>(antecedentes ginecológicos obstetras)</H3>
               <p>
-                <label>Gestaciones</label>
-                <input type="radio">
+                <label>Gestaciones:  </label>
+                <spam>{{gest}}</spam>
               </p>
               <p>
-                <label>Partos</label>
-                <input type="radio">
+                <label>Partos:  </label>
+                <spam>{{parto}}</spam>
               </p>
               <p>
-                <label>Cesarias</label>
-                <input type="radio">
+                <label>Cesarias:  </label>
+                <spam>{{cesaria}}</spam>
               </p>
               <p>
-                <label>Abortos</label>
-                <input type="radio">
+                <label>Abortos:  </label>
+                <spam>{{aborto}}</spam>
               </p>
               <p>
-                <label>FUR</label>
-                <input type="radio">
+                <label>FUR:  </label>
+                <spam>{{fur}}</spam>
               </p>
             </section>
           </div>
@@ -206,8 +216,8 @@
             <section>
               <h2>Diagnostico (DX)</h2>
               <div class="cuerpos">
-                <img src="@/assets/mujer.jpg" alt="img-mujer" class="cuerpo__1" width="40%" height="570">
-                <img src="@/assets/hombre.jpg" alt="img-hombre" class="cuerpo__2" width="40%" height="570">
+                <img src="@/assets/mujer.jpg" alt="img-mujer" class="cuerpo__1" width="45%" height="570">
+                <img src="@/assets/hombre.jpg" alt="img-hombre" class="cuerpo__2" width="45%" height="570">
               </div>
             </section>
           </div>
@@ -335,62 +345,62 @@
           <H1> Historial Clinico </H1>
           <p>
             <label>Fecha: </label>
-            <input type="date" >
+            <input type="date" v-model="fecha">
           </p>
           <p>
             <label>Nombre Completo: </label>
-            <input type="text" >
+            <input type="text" v-model="fullname" >
           </p>
           <p>
             <label>Direccion: </label>
-            <input type="text" >
+            <input type="text" v-model="address">
           </p>
           <p>
             <label>Telefono: </label>
-            <input type="text" >
+            <input type="text" v-model="phone">
           </p>
           <p>
             <label>Ocupacion: </label>
-            <input type="text" >
+            <input type="text" v-model="ocupacion">
           </p>
           <p>
             <label>Estado civil: </label>
-            <input type="text" >
+            <input type="text" v-model="edocivil">
           </p>
           <p>
             <label>Edad: </label>
-            <input type="text" >
+            <input type="text" v-model="edad">
           </p>
         </section>
         <section>
           <H1>Signos Vitales</H1>
           <p>
             <label>F/C: </label>
-            <input type="text" >
+            <input type="text" v-model="fc">
           </p>
           <p>
             <label>T/C: </label>
-            <input type="text" >
+            <input type="text" v-model="tc">
           </p>
           <p>
             <label>F/R: </label>
-            <input type="text" >
+            <input type="text" v-model="fr">
           </p>
           <p>
             <label>T/A: </label>
-            <input type="text" >
+            <input type="text" v-model="ta">
           </p>
           <p>
             <label>Talla: </label>
-            <input type="text" >
+            <input type="text" v-model="talla">
           </p>
           <p>
             <label>Peso: </label>
-            <input type="text" >
+            <input type="text" v-model="peso">
           </p>
           <p>
             <label>IMC: </label>
-            <input type="text" >
+            <input type="text" v-model="imc">
           </p>
         </section>
       </div>
@@ -401,58 +411,58 @@
           <H1>APHF</H1>
           <p>
             <label>Deabetes Mellitus: </label>
-            <input type="text">
+            <input type="text" v-model="deabetes">
           </p>
           <p>
             <label>Hipotención: </label>
-            <input type="text">
+            <input type="text" v-model="hipo">
           </p>
           <p>
             <label>Cancer: </label>
-            <input type="text">
+            <input type="text" v-model="cancer">
           </p>
           <p>
             <label>Trigliseridos: </label>
-            <input type="text">
+            <input type="text" v-model="trigli">
           </p>
           <p>
             <label>Alergias: </label>
-            <input type="text">
+            <input type="text" v-model="alerg">
           </p>
           <p>
             <label>Hipertención: </label>
-            <input type="text">
+            <input type="text" v-model="hiperten">
           </p>
           <p>
             <label>Artritis Reumatoide: </label>
-            <input type="text">
+            <input type="text" v-model="reuma">
           </p>
           <p>
             <label>Obesidad: </label>
-            <input type="text">
+            <input type="text" v-model="obesidad">
           </p>
           <p>
             <label>Colesterol: </label>
-            <input type="text">
+            <input type="text" v-model="coleste">
           </p>
         </section>
         <section>
           <h1>APNP</h1>
           <p>
             <label>Alcoholismo: </label>
-            <input type="text">
+            <input type="text" v-model="alco">
           </p>
           <p>
             <label>Drogas: </label>
-            <input type="text">
+            <input type="text" v-model="drung">
           </p>
           <p>
             <label>Tabaco: </label>
-            <input type="text">
+            <input type="text" v-model="tabaco">
           </p>
           <p>
             <label>Medicamentos: </label>
-            <input type="text">
+            <input type="text" v-model="medica">
           </p>
         </section>
       </div>
@@ -463,19 +473,19 @@
           <h1>APP (lo que tiene el paciente)</h1>
           <p>
             <label>¿Cuándo comenzo con el dolor?: </label>
-            <input type="date">
+            <input type="date" v-model="dolor">
           </p>
           <p>
             <label>¿Cuándo fue su última caída?: </label>
-            <input type="date">
+            <input type="date" v-model="caida">
           </p>
           <p>
             <label>Motivo de la visita: </label>
-            <input type="txt">
+            <input type="txt" v-model="visit">
           </p>
           <p>
             <label>T.P, agraga mas observaciones: </label><br>
-            <textarea cols="30" rows="3" placeholder="comentarios"></textarea>
+            <textarea cols="30" rows="3" placeholder="comentarios" v-model="observ"></textarea>
           </p>
         </section>
         <section>
@@ -483,23 +493,23 @@
           <H3>(antecedentes ginecológicos obstetras)</H3>
           <p>
             <label>Gestaciones: </label>
-            <input type="radio">
+            <input type="txt" v-model="gest">
           </p>
           <p>
             <label>Partos: </label>
-            <input type="radio">
+            <input type="txt" v-model="parto">
           </p>
           <p>
             <label>Cesarias: </label>
-            <input type="radio">
+            <input type="txt" v-model="cesaria">
           </p>
           <p>
             <label>Abortos: </label>
-            <input type="radio">
+            <input type="txt" v-model="aborto">
           </p>
           <p>
             <label>FUR: </label>
-            <input type="radio">
+            <input type="txt" v-model="fur">
           </p>
         </section>
       </div>
@@ -621,17 +631,8 @@
         </table>
       </div>
     </div>
-    <br>
-    <v-btn
-        class="btn"
-        color="#2DA4D9"
-        dark
-        elevation="3"
-        x-large
-        @click="generateReport"
-    >
-      Generar Responsiva
-    </v-btn>
+
+
   </div>
 </template>
 
@@ -639,6 +640,46 @@
 import VueHtml2pdf from 'vue-html2pdf'
 export default {
   name: "responsiva",
+  data(){
+    return{
+      fecha:'',
+      fullname:'',
+      address:'',
+      phone:'',
+      ocupacion:'',
+      edocivil:'',
+      edad:'',
+      fc:'',
+      tc:'',
+      fr:'',
+      ta:'',
+      talla:'',
+      peso:'',
+      imc:'',
+      deabetes:'',
+      hipo:'',
+      cancer:'',
+      trigli:'',
+      alerg:'',
+      hiperten:'',
+      obesidad:'',
+      coleste:'',
+      reuma:'',
+      alco:'',
+      drung:'',
+      tabaco:'',
+      medica:'',
+      dolor:'',
+      caida:'',
+      visit:'',
+      observ:'',
+      gest:'',
+      parto:'',
+      cesaria:'',
+      aborto:'',
+      fur:'',
+    }
+  },
   components: {
     VueHtml2pdf
   },
@@ -652,7 +693,8 @@ export default {
 
 <style scoped>
 .btn{
-  margin: 20px;
+  margin: 1% 0 0 50%;
+  padding-left: 15px;
 }
 
 .all{
@@ -661,7 +703,7 @@ export default {
   flex-wrap: wrap;
   width: 800px;
   padding-top: 15px;
-  padding-left: 15px;
+  padding-left: 5px;
 }
 
 .one{
@@ -695,8 +737,9 @@ export default {
   display: flex;
   flex-direction: row;
   width: 800px;
-  padding-left: 15px;
+  padding-left: 5px;
   padding-bottom: 15px;
+  margin-top: 5%;
 }
 
 .secundar{
@@ -731,6 +774,7 @@ export default {
 .cuerpo__2{
   background-repeat: no-repeat;
   background-position: center;
+  padding-left: 5rem;
 }
 
 .citas{
