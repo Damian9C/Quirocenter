@@ -8,65 +8,12 @@
         <v-spacer></v-spacer>
         <v-btn
             class="btn__two"
-            color="teal"
-            @click="overlay = !overlay"
+            color="green"
+
+            @click.prevent="overlay = !overlay"
         >
-          agregar
+          Nueva Contraseña
         </v-btn>
-        <v-overlay
-            :z-index="zIndex"
-            :value="overlay"
-        >
-          <div  class="form__content">
-            <titles principal-title="Añadir Nuevo Usuario"/>
-            <br>
-            <div>
-              <v-text-field
-                  class="thing"
-                  label="Nombre"
-                  placeholder="Nombre del Usuario"
-                  rounded
-                  background-color="#349DB4"
-                  dense
-                  outlined
-                  v-model="name"
-              ></v-text-field>
-            </div>
-            <div>
-              <v-text-field
-                  class="thing"
-                  label="email"
-                  placeholder="email"
-                  rounded
-                  background-color="#349DB4"
-                  dense
-                  outlined
-                  v-model="email"
-              ></v-text-field>
-            </div>
-            <div>
-              <v-select
-                  :items="items"
-                  label="Tipo de cuenta"
-                  background-color="#349DB4"
-                  rounded
-                  dense
-                  outlined
-                  v-model="cuenta"
-              ></v-select>
-            </div>
-            <div>
-              <v-btn
-                  class="white--text"
-                  color="teal"
-                  @click="overlay = false"
-                  @click.prevent="addUser"
-              >
-                añadir
-              </v-btn>
-            </div>
-          </div>
-        </v-overlay>
       </div>
       <v-simple-table>
         <template v-slot:default>
@@ -81,9 +28,6 @@
             <th>
               Correos
             </th>
-            <th>
-              Acciones
-            </th>
           </tr>
           </thead>
           <tbody>
@@ -94,37 +38,63 @@
             <td>{{ item.name }}</td>
             <td>{{ item.cuenta }}</td>
             <td>{{ item.email }}</td>
-            <td><v-btn
-                class="btn__two"
-                color="red"
-                @click.prevent="deleteUser(); userSelected = item"
-            >
-              borrar
-            </v-btn></td>
-            <v-dialog v-model="dialogDelete" max-width="540px">
-              <v-card>
-                <v-card-title class="text-h5">¿Seguro que quieres eliminar esta cuenta?</v-card-title>
-                <v-card-actions>
-                  <v-spacer></v-spacer>
-                  <v-btn color="blue darken-1" text @click="closeDelete">Cancel</v-btn>
-                  <v-btn color="blue darken-1" text @click="deleteItemConfirm()">OK</v-btn>
-                  <v-spacer></v-spacer>
-                </v-card-actions>
-              </v-card>
-            </v-dialog>
           </tr>
           </tbody>
         </template>
       </v-simple-table>
+
+      <v-overlay
+          :z-index="zIndex"
+          :value="overlay"
+      >
+        <div class="form__content">
+          <titles principal-title="Cambiar Contraseña"/>
+          <div><br/>
+            <v-text-field
+                label="Contraseña"
+                rounded
+                background-color="#349DB4"
+                dense
+                outlined
+                :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+                :type="show1 ? 'text' : 'password'"
+                @click:append="show1 = !show1"
+                v-model="pass"
+            ></v-text-field>
+          </div><br/>
+          <div>
+            <v-btn
+                id="botton"
+                color="teal"
+                @click="overlay = false"
+                @click.prevent="changePass()"
+            >
+              cambiar
+            </v-btn>
+          </div>
+          <br>
+          <div>
+            <v-btn
+                class="role__inputsBtn"
+                color="teal"
+                small
+                @click="overlay = false"
+            >
+              cancelar
+            </v-btn>
+          </div>
+        </div>
+      </v-overlay>
 
     </div>
   </div>
 </template>
 
 <script>
-import {db} from '../util/index'
+import {auth , db} from '../util/index'
 import Titles from "../components/titles";
 import Navigationbar from "../components/navigationbar";
+import firebase from "firebase";
 export default {
   name: "role",
   components: {Navigationbar, Titles},
@@ -133,8 +103,10 @@ export default {
     zIndex: 1,
     dialogDelete: false,
     users: [],
+    show1: false,
     items:['Administrador','Doctor','Asistente'],
     userSelected: null,
+    pass: "",
   }),
 
   mounted(){
@@ -155,29 +127,19 @@ export default {
   },
 
   methods:{
-    addUser(){
-      db.collection('users').add({
-        name: this.name,
-        cuenta: this.cuenta,
-        email: this.email,
-      })
-          .then(() => this.$mount())
-          .catch((error) => {
-            alert.error("Error adding document: ", error);
-          });
-    },
+    changePass(){
+      try {
+        const user = firebase.auth().currentUser;
+        const newPassword = this.pass;
 
-    deleteItemConfirm () {
-      db.collection('users').doc(this.userSelected.id).delete().then(()=>this.$mount())
-      this.closeDelete()
-    },
+        user.updatePassword(newPassword).then(() => {
+        }).catch((error) => {
+          console.log(error)
+        });
 
-    deleteUser () {
-      this.dialogDelete = true
-    },
-
-    closeDelete () {
-      this.dialogDelete = false
+      }catch (e) {
+        console.log(e)
+      }
     },
   }
 }
@@ -197,7 +159,6 @@ export default {
   align-items: center;
   border-radius: 15px;
   width: 47vh;
-  height: 56vh;
 }
 
 .btn__two{
@@ -210,6 +171,10 @@ export default {
 }
 .back{
   margin: 0.1rem 1% 5% 1%;
+}
+
+.role__inputsBtn{
+  margin-bottom: 1rem;
 }
 
 @media all and (max-width: 1400px) {
