@@ -251,6 +251,7 @@ export default {
           age: item.data().age,
           address: item.data().address,
         })))
+    this.isVisible()
   },
 
   methods: {
@@ -260,6 +261,7 @@ export default {
         phone: this.phone,
         age: this.age,
         address: this.address,
+        quotes: [],
       })
           .then(() => this.$mount())
           .catch((error) => {
@@ -282,9 +284,11 @@ export default {
 
     updateCustom(){
       db.collection('customer').doc(this.userSelected.id).update({
-        phone: this.telefono,
-        age: this.edad,
-        address: this.direccion,
+        phone: this.phone,
+        age: this.age,
+        address: this.direction,
+        name: this.userSelected.name,
+        quotes: this.userSelected.quotes,
       }).then(()=>this.$mount())
       this.closeEdit()
     },

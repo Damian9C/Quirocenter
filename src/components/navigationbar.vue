@@ -102,7 +102,8 @@ export default {
     }
   },
   mounted() {
-
+    let variable = this.$store.state.user
+    if (variable === 'Administrador') this.isVisible = true
   }
 }
 </script>

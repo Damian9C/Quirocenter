@@ -35,9 +35,21 @@
         </v-icon>
       </v-btn>
     </div>
-    <br/>
+    <br/><br/>
     <div class="table">
-      <h1 class="customer--title">Historial:</h1><br/>
+      <div class="id__btnAdd">
+        <h1 class="customer--title">Historial:</h1><br/>
+        <v-spacer/>
+        <v-btn
+            class="btn__two"
+            color="teal"
+            dark
+            @click="overlay = !overlay"
+        >
+          agregar
+        </v-btn>
+      </div>
+      <br/>
       <v-simple-table dense>
         <template v-slot:default>
           <thead>
@@ -51,6 +63,9 @@
             <th class="text-left">
               Detalles
             </th>
+            <th class="text-left">
+              Acciones
+            </th>
           </tr>
           </thead>
           <tbody>
@@ -61,12 +76,131 @@
             <td>{{ item.date }}</td>
             <td>{{ item.doctor }}</td>
             <td>{{ item.details }}</td>
+            <td><v-btn
+                class="btn__two"
+                color="red"
+                dark
+                small
+                @click.prevent="dialogDelete = !dialogDelete; itemSelected = item"
+            >
+              borrar
+            </v-btn></td>
           </tr>
           </tbody>
         </template>
       </v-simple-table>
     </div>
-    <br/><br/>
+    <br/><br/><br/><br/>
+
+    <v-dialog v-model="dialogDelete" max-width="520px">
+      <v-card>
+        <v-card-title class="text-h5">¿Seguro que quieres eliminar este Elemento?</v-card-title>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="blue darken-1" text @click="dialogDelete = !dialogDelete">Cancel</v-btn>
+          <v-btn color="blue darken-1" text @click="deleteItemConfirm()">OK</v-btn>
+          <v-spacer></v-spacer>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+    <v-overlay
+        :z-index="zIndex"
+        :value="overlay"
+    >
+      <div class="form__content">
+        <titles principal-title="Añadir Nuevo Cliente"/>
+        <br>
+        <div class="id__inputs">
+          <v-text-field
+              id="name"
+              label="Nombre del Doctor"
+              rounded
+              background-color="#349DB4"
+              dense
+              outlined
+              v-model="nameDoc"
+          ></v-text-field>
+        </div>
+        <div class="id__inputs">
+          <v-text-field
+              id="phone"
+              label="Detalle"
+              rounded
+              background-color="#349DB4"
+              dense
+              outlined
+              v-model="details"
+          ></v-text-field>
+        </div>
+        <div class="id__inputs">
+          <v-dialog
+              ref="dialog"
+              v-model="modal"
+              :return-value.sync="date"
+              persistent
+              width="290px"
+          >
+            <template v-slot:activator="{ on, attrs }">
+              <v-text-field
+                  v-model="date"
+                  label="Seleccionar día"
+                  append-icon="mdi-calendar"
+                  rounded
+                  background-color="#349DB4"
+                  dense
+                  outlined
+                  v-bind="attrs"
+                  v-on="on"
+              ></v-text-field>
+            </template>
+            <v-date-picker
+                v-model="date"
+                scrollable
+                locale="es-Es"
+            >
+              <v-spacer></v-spacer>
+              <v-btn
+                  text
+
+                  color="primary"
+                  @click="modal = false"
+              >
+                Cancel
+              </v-btn>
+              <v-btn
+                  text
+                  color="primary"
+                  @click="$refs.dialog.save(date)"
+              >
+                OK
+              </v-btn>
+            </v-date-picker>
+          </v-dialog>
+        </div>
+        <div>
+          <v-btn
+              id="botton"
+              color="teal"
+              @click="addCustom"
+          >
+            añadir
+          </v-btn>
+        </div>
+        <br>
+        <div>
+          <v-btn
+              dark
+              class="id__btnCancel"
+              color="teal"
+              small
+              @click="overlay = false"
+          >
+            cancelar
+          </v-btn>
+        </div>
+      </div>
+    </v-overlay>
 
   </div>
 </template>
@@ -81,6 +215,17 @@ export default {
   data(){
     return{
       customer: {},
+      overlay: false,
+      dialogDelete: false,
+      zIndex: 1,
+
+      nameDoc: '',
+      details: '',
+      itemSelected:'',
+
+      date: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
+      menu: false,
+      modal: false,
     }
   },
   mounted() {
@@ -97,11 +242,45 @@ export default {
               phone: item.data().phone,
               age: item.data().age,
               address: item.data().address,
+              quotes: item.data().quotes,
             })
           }
         }))
-    console.log(this.customer)
-  }
+  },
+  methods: {
+    addCustom(){
+      let quote = {
+        date: this.date,
+        doctor: this.nameDoc,
+        details: this.details,
+      }
+      this.customer.quotes.push( quote )
+
+      let data = {
+        phone: this.customer.phone,
+        age: this.customer.age,
+        address: this.customer.address,
+        quotes: this.customer.quotes,
+      }
+
+      db.collection('customer').doc(this.customer.id).update(data).then(()=>this.$mount())
+      this.overlay = false;
+    },
+    deleteItemConfirm() {
+      let valor = this.customer.quotes.indexOf(this.itemSelected)
+      this.customer.quotes.splice( valor ,1 )
+
+      let data = {
+        phone: this.customer.phone,
+        age: this.customer.age,
+        address: this.customer.address,
+        quotes: this.customer.quotes,
+      }
+
+      db.collection('customer').doc(this.customer.id).update(data).then(()=>this.$mount())
+      this.dialogDelete = false;
+    },
+  },
 }
 </script>
 
@@ -129,6 +308,29 @@ export default {
 .table{
   width: 77%;
   margin: 1rem 2% 5% 20%;
+}
+
+.id__btnAdd{
+  display: flex;
+}
+
+.id__inputs{
+  width: 70%;
+}
+
+.id__btnCancel{
+  margin-bottom: 1rem;
+  margin-top: -10px;
+}
+
+.form__content{
+  background-color: #69C9DE;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 15px;
+  width: 45vh;
 }
 
 @media all and (max-width: 1360px) {
