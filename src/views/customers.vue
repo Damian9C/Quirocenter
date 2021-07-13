@@ -357,6 +357,7 @@ export default {
     margin: 1rem 2% 5% 24%;
   }
 }
+
 @media all and (max-width: 1110px) {
   .customerCmp{
     width: 73%;

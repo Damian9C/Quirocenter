@@ -8,7 +8,7 @@
         <v-spacer></v-spacer>
         <v-btn
             class="btn__two"
-            color="green"
+            color="teal"
 
             @click.prevent="overlay = !overlay"
         >
@@ -48,7 +48,7 @@
           :value="overlay"
       >
         <div class="form__content">
-          <titles principal-title="Cambiar Contraseña"/>
+          <titles principal-title="Nueva Contraseña"/>
           <div><br/>
             <v-text-field
                 label="Contraseña"
@@ -65,7 +65,7 @@
           <div>
             <v-btn
                 id="botton"
-                color="teal"
+                color="#349DB4"
                 @click="overlay = false"
                 @click.prevent="changePass()"
             >
@@ -76,7 +76,7 @@
           <div>
             <v-btn
                 class="role__inputsBtn"
-                color="teal"
+                color="#349DB4"
                 small
                 @click="overlay = false"
             >

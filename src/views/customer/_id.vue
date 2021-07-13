@@ -92,7 +92,7 @@
     </div>
     <br/><br/><br/><br/>
 
-    <v-dialog v-model="dialogDelete" max-width="520px">
+    <v-dialog v-model="dialogDelete" max-width="540px">
       <v-card>
         <v-card-title class="text-h5">¿Seguro que quieres eliminar este Elemento?</v-card-title>
         <v-card-actions>
@@ -181,7 +181,7 @@
         <div>
           <v-btn
               id="botton"
-              color="teal"
+              color="#349DB4"
               @click="addCustom"
           >
             añadir
@@ -192,7 +192,7 @@
           <v-btn
               dark
               class="id__btnCancel"
-              color="teal"
+              color="#349DB4"
               small
               @click="overlay = false"
           >

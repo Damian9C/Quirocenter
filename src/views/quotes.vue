@@ -350,14 +350,14 @@
           <br/>
           <v-btn
               class="white--text"
-              color="teal"
+              color="#349DB4"
               @click="addQuote"
           >
             añadir
           </v-btn>
           <v-btn
               class="quotesCmp__cancel"
-              color="teal"
+              color="#349DB4"
               small
               @click="overlay = false"
           >
@@ -436,29 +436,36 @@ export default {
     overlay: false,
     zIndex: 1,
   }),
+
   mounted () {
     this.$refs.calendar.checkChange();
 
     this.getHours();
     this.getCustomers();
   },
+
   methods: {
     viewDay ({ date }) {
       this.focus = date
       this.type = 'day'
     },
+
     getEventColor (event) {
       return event.color
     },
+
     setToday () {
       this.focus = ''
     },
+
     prev () {
       this.$refs.calendar.prev()
     },
+
     next () {
       this.$refs.calendar.next()
     },
+
     showEvent ({ nativeEvent, event }) {
       const open = () => {
         this.selectedEvent = event
@@ -472,9 +479,9 @@ export default {
       } else {
         open()
       }
-
       nativeEvent.stopPropagation()
     },
+
     updateRange() {
       this.events = []
 
