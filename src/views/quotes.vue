@@ -115,20 +115,131 @@
                       :color="selectedEvent.color"
                       dark
                   >
-                    <v-btn icon @click="">
+                    <v-btn icon @click="deleteEvent(selectedEvent.id)">
                       <v-icon>mdi-delete</v-icon>
                     </v-btn>
                     <v-toolbar-title v-html="selectedEvent.name"></v-toolbar-title>
                     <v-spacer/>
-                    <v-btn icon>
+                    <v-btn icon @click="dialogEdit = !dialogEdit">
                       <v-icon>mdi-pencil</v-icon>
                     </v-btn>
                   </v-toolbar>
                   <v-card-text>
                     <span>
-                      Horario de la cita:<br/>
+                      <h4>Horario de la cita:<br/></h4>
                       {{ selectedEvent.timeIni}} - {{ selectedEvent.timeEnd}}
                     </span>
+                    <br/>
+                    <span>
+                      <h4>Cliente:<br/></h4>
+                      {{ selectedEvent.customerName }}
+                    </span>
+                    <v-dialog
+                        v-model="dialogEdit"
+                        width="20rem"
+                        dark
+                    >
+                      <div class="form__content">
+                        <titles class="white--text" principal-title="Editar Cita"/>
+                        <br/>
+
+                        <div>
+                          <v-dialog
+                              ref="dialog"
+                              v-model="modal"
+                              :return-value.sync="date"
+                              persistent
+                              width="290px"
+                          >
+                            <template v-slot:activator="{ on, attrs }">
+                              <v-text-field
+                                  v-model="date"
+                                  label="Seleccionar día"
+                                  append-icon="mdi-calendar"
+                                  readonly
+                                  v-bind="attrs"
+                                  v-on="on"
+                              ></v-text-field>
+                            </template>
+                            <v-date-picker
+                                v-model="date"
+                                scrollable
+                                locale="es-Es"
+                            >
+                              <v-spacer></v-spacer>
+                              <v-btn
+                                  text
+                                  color="primary"
+                                  @click="modal = false"
+                              >
+                                Cancel
+                              </v-btn>
+                              <v-btn
+                                  text
+                                  color="primary"
+                                  @click="$refs.dialog.save(date)"
+                              >
+                                OK
+                              </v-btn>
+                            </v-date-picker>
+                          </v-dialog>
+                        </div>
+
+                        <div class="quotesCmp__inputs">
+                          <v-select
+                              :items="hours"
+                              label="Hora Inicio"
+                              v-model="iniHour"
+                          ></v-select>
+                        </div>
+
+                        <div class="quotesCmp__inputs">
+                          <v-select
+                              :items="hours"
+                              label="Hora Fin"
+                              v-model="endHour"
+                          ></v-select>
+                        </div>
+
+                        <br/>
+                        <v-btn
+                            class="white--text"
+                            color="teal"
+                            @click="updateQuote(selectedEvent)"
+                        >
+                          Guardar
+                        </v-btn>
+                        <v-btn
+                            class="quotesCmp__cancel"
+                            color="teal"
+                            small
+                            @click="dialogEdit = false"
+                        >
+                          cancelar
+                        </v-btn>
+                      </div>
+
+                      <div>
+                        <v-dialog
+                            v-model="dialogErrorUpdate"
+                            width="20rem"
+                        >
+                          <v-alert
+                              border="bottom"
+                              color="red"
+                              type="error"
+                          >
+                            Rellene todos los campos
+                            <v-btn icon @click="dialogErrorUpdate = !dialogErrorUpdate">
+                              <v-icon>
+                                mdi-close
+                              </v-icon>
+                            </v-btn>
+                          </v-alert>
+                        </v-dialog>
+                      </div>
+
+                    </v-dialog>
                   </v-card-text>
                   <v-card-actions>
                     <v-btn
@@ -240,6 +351,26 @@
             cancelar
           </v-btn>
         </div>
+
+        <div>
+          <v-dialog
+              v-model="dialogError"
+              width="20rem"
+          >
+            <v-alert
+                border="bottom"
+                color="red"
+                type="error"
+            >
+              Rellene todos los campos
+              <v-btn icon @click="dialogError = !dialogError">
+                <v-icon>
+                  mdi-close
+                </v-icon>
+              </v-btn>
+            </v-alert>
+          </v-dialog>
+        </div>
       </v-overlay>
     </div>
   </div>
@@ -285,6 +416,9 @@ export default {
     menu: false,
     modal: false,
 
+    dialogError: false,
+    dialogEdit: false,
+    dialogErrorUpdate: false,
     overlay: false,
     zIndex: 1,
   }),
@@ -327,13 +461,14 @@ export default {
 
       nativeEvent.stopPropagation()
     },
-    updateRange ({ start, end }) {
+    updateRange() {
       this.events = []
 
       db.collection('quotes')
           .get()
           .then((r) => r.docs.map((item) => {
             this.events.push({
+              id: item.id,
               start: new Date(Number(item.data().start.seconds + "000")),
               end: new Date(Number(item.data().end.seconds + "000")),
               name: item.data().name,
@@ -368,18 +503,46 @@ export default {
 
       let filter = this.customer.filter(element => element.name === this.selectedCustomer)
 
-      db.collection("quotes").add({
-        start: dateTxtIni,
-        end: dateTxtEnd,
-        name: 'Cita',
-        color: 'blue',
-        customerName: filter[0].name,
-        customerId: filter[0].id,
-      })
-          .then(() => this.$mount())
-          .catch((error) => {
-            alert.error("Error adding document: ", error);
-          });
+      this.dialogError = true;
+      if ( this.iniHour === null || this.endHour === null ){
+        this.dialogError = true;
+      }else {
+        db.collection("quotes").add({
+          start: dateTxtIni,
+          end: dateTxtEnd,
+          name: 'Cita',
+          color: 'blue',
+          customerName: filter[0].name,
+          customerId: filter[0].id,
+        })
+            .then(() => this.$mount())
+            .catch((error) => {
+              alert.error("Error adding document: ", error);
+            });
+      }
+    },
+
+    updateQuote(item){
+      let numberIni = Date.parse(this.date + "T" + this.iniHour + ":00");
+      let dateTxtIni = new Date(numberIni);
+      let numberEnd = Date.parse(this.date + "T" + this.endHour + ":00");
+      let dateTxtEnd = new Date(numberEnd);
+
+      this.dialogError = true;
+      if ( this.iniHour === null || this.endHour === null ){
+        this.dialogErrorUpdate = true;
+      }else {
+        db.collection('quotes').doc(item.id).update({
+          start: dateTxtIni,
+          end: dateTxtEnd,
+          name: 'Cita',
+          color: 'blue',
+          customerName: item.name,
+          customerId: item.id,
+        }).then(()=>this.$mount())
+
+        this.dialogEdit = false;
+      }
     },
 
     getCustomers(){
@@ -397,6 +560,10 @@ export default {
           }));
     },
 
+    deleteEvent(id){
+      db.collection('customer').doc(id).delete().then(()=>this.$mount())
+      this.closeDelete()
+    },
   },
 }
 </script>
