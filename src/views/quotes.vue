@@ -681,4 +681,17 @@ export default {
   }
 }
 
+@media all and (max-width: 360px) {
+  .form__content{
+    width: 18rem;
+  }
+}
+
+@media all and (max-width: 340px) {
+  .form__content{
+    width: 17rem;
+  }
+}
+
+
 </style>

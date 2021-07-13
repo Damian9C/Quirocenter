@@ -345,12 +345,27 @@ export default {
   margin: 1rem 2% 5% 19%;
 }
 
+@media all and (max-width: 1400px) {
+  .customerCmp{
+    width: 75%;
+    margin: 1rem 2% 5% 21%;
+  }
+}
+
+@media all and (max-width: 1290px) {
+  .customerCmp{
+    width: 75%;
+    margin: 1rem 2% 5% 22%;
+  }
+}
+
 @media all and (max-width: 1230px) {
   .customerCmp{
     width: 74%;
     margin: 1rem 2% 5% 23%;
   }
 }
+
 @media all and (max-width: 1160px) {
   .customerCmp{
     width: 73%;

@@ -109,7 +109,7 @@
         :value="overlay"
     >
       <div class="form__content">
-        <titles principal-title="Añadir Nuevo Cliente"/>
+        <titles principal-title="Historial"/>
         <br>
         <div class="id__inputs">
           <v-text-field
@@ -402,5 +402,18 @@ export default {
     margin: auto;
   }
 }
+
+@media all and (max-width: 420px) {
+  .form__content{
+    width: 20rem;
+  }
+}
+
+@media all and (max-width: 360px) {
+  .form__content{
+    width: 15rem;
+  }
+}
+
 
 </style>

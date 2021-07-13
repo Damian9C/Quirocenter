@@ -48,7 +48,7 @@
           :value="overlay"
       >
         <div class="form__content">
-          <titles principal-title="Nueva Contraseña"/>
+          <titles principal-title="Cambiar Contraseña"/>
           <div><br/>
             <v-text-field
                 label="Contraseña"
@@ -222,24 +222,24 @@ export default {
 }
 
 @media all and (max-width: 959px) {
-  .config{
+  .config {
     width: 90%;
     margin: auto;
   }
+}
 
 @media all and (max-width: 440px) {
   .form__content{
-    width: 46vh;
-    height: 55vh;
+    width: 20rem;
+
   }
 }
 @media all and (max-width: 400px) {
   .form__content{
-    width: 44vh;
-    height: 55vh;
+    width: 17rem;
   }
-  }
-
 }
+
+
 
 </style>

@@ -56,10 +56,38 @@ export default {
   margin: 1rem 2% 5% 19%;
 }
 
+@media all and (max-width: 1400px) {
+  .services__container{
+    width: 76%;
+    margin: 1rem 2% 5% 20%;
+  }
+}
+
+@media all and (max-width: 1350px) {
+  .services__container{
+    width: 75%;
+    margin: 1rem 2% 5% 21%;
+  }
+}
+
+@media all and (max-width: 1325px) {
+  .services__container{
+    width: 74%;
+    margin: 1rem 2% 5% 22%;
+  }
+}
+
 @media all and (max-width: 1230px) {
   .services__container{
     width: 72%;
     margin: 1rem 2% 5% 23%;
+  }
+}
+
+@media all and (max-width: 1155px) {
+  .services__container{
+    width: 71%;
+    margin: 1rem 2% 5% 24%;
   }
 }
 
