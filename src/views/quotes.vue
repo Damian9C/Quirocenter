@@ -393,7 +393,6 @@
 import Titles from "../components/titles";
 import Navigationbar from "../components/navigationbar";
 import {db} from "../util";
-import customers from "./customers";
 export default {
   name: "quotes",
   components: {Navigationbar, Titles},
@@ -429,6 +428,7 @@ export default {
     menu: false,
     modal: false,
 
+    clock: [],
     dialogError: false,
     dialogEdit: false,
     dialogDelete: false,
@@ -439,8 +439,8 @@ export default {
   mounted () {
     this.$refs.calendar.checkChange();
 
+    this.getHours();
     this.getCustomers();
-    this.generateRange();
   },
   methods: {
     viewDay ({ date }) {
@@ -494,13 +494,13 @@ export default {
               timed: "true",
             });
           }));
-      console.log(this.events)
     },
 
     generateRange () {
-      let ini = 9, end = 18;
+      let ini = parseInt(this.clock[0].ini), end = parseInt(this.clock[0].end);
 
-      for ( let i = ini ; i <= end ; i++){
+      for ( let i = ini ; i <= end ; i++ ){
+        console.log(i)
         if (i < 10 ) {
           this.hours.push( "0" + i + ":00")
         }else {
@@ -577,6 +577,19 @@ export default {
     deleteEvent(id){
       db.collection('quotes').doc(id).delete().then(()=>this.$mount())
       this.dialogDelete = false;
+    },
+
+    getHours(){
+      db.collection('settings')
+          .get()
+          .then((r) => r.docs.map((item) => {
+            let data = item.data()
+            this.clock.push({
+              ini: data.ini,
+              end: data.end,
+            })
+          }))
+          .finally(() => this.generateRange());
     },
   },
 }
