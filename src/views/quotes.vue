@@ -115,7 +115,7 @@
                       :color="selectedEvent.color"
                       dark
                   >
-                    <v-btn icon @click="deleteEvent(selectedEvent.id)">
+                    <v-btn icon @click="dialogDelete = !dialogDelete">
                       <v-icon>mdi-delete</v-icon>
                     </v-btn>
                     <v-toolbar-title v-html="selectedEvent.name"></v-toolbar-title>
@@ -134,6 +134,7 @@
                       <h4>Cliente:<br/></h4>
                       {{ selectedEvent.customerName }}
                     </span>
+
                     <v-dialog
                         v-model="dialogEdit"
                         width="20rem"
@@ -238,8 +239,20 @@
                           </v-alert>
                         </v-dialog>
                       </div>
-
                     </v-dialog>
+
+                    <v-dialog v-model="dialogDelete" max-width="500px">
+                      <v-card>
+                        <v-card-title class="text-h5">¿Seguro que quieres eliminar a esta Cita?</v-card-title>
+                        <v-card-actions>
+                          <v-spacer></v-spacer>
+                          <v-btn color="blue darken-1" text @click="dialogDelete = !dialogDelete">Cancel</v-btn>
+                          <v-btn color="blue darken-1" text @click="deleteEvent(selectedEvent.id)">OK</v-btn>
+                          <v-spacer></v-spacer>
+                        </v-card-actions>
+                      </v-card>
+                    </v-dialog>
+
                   </v-card-text>
                   <v-card-actions>
                     <v-btn
@@ -418,6 +431,7 @@ export default {
 
     dialogError: false,
     dialogEdit: false,
+    dialogDelete: false,
     dialogErrorUpdate: false,
     overlay: false,
     zIndex: 1,
@@ -561,8 +575,8 @@ export default {
     },
 
     deleteEvent(id){
-      db.collection('customer').doc(id).delete().then(()=>this.$mount())
-      this.closeDelete()
+      db.collection('quotes').doc(id).delete().then(()=>this.$mount())
+      this.dialogDelete = false;
     },
   },
 }
