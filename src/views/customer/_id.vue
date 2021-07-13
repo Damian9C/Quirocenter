@@ -27,6 +27,7 @@
           dark
           elevation="3"
           x-large
+          @click="$router.push(`/customers/responsiva`)"
       >
         Responsiva
         <v-icon right >

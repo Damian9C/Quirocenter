@@ -9,6 +9,7 @@ import role from "../views/role";
 import editService from "../views/editService";
 import forgotPass from "../views/forgotPass";
 import _id from "../views/customer/_id";
+import responsiva from "../views/customer/responsiva";
 import firebase from "firebase";
 
 Vue.use(VueRouter)
@@ -79,7 +80,13 @@ const routes = [
     meta:{
       requestAuth: true
     }
-  }
+  },
+  {
+    path: '/customers/:responsiva',
+    name: 'responsiva',
+    component: responsiva,
+  },
+
 ]
 
 const router = new VueRouter({
