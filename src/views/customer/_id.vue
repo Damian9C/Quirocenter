@@ -2,8 +2,8 @@
   <div>
     <navigationbar/>
     <div class="customer__data">
-      <v-icon size="28" class="back" @click="$router.push(`/customers`)">mdi-arrow-left</v-icon>
       <Titles principal-title="Perfil de Usuario"/>
+      <v-icon size="28" class="back" @click="$router.push(`/customers`)">mdi-arrow-left</v-icon>
       <div>
         <br/>
         <br/>
@@ -74,54 +74,33 @@
 <script>
 import Navigationbar from "../../components/navigationbar";
 import Titles from "../../components/titles";
+import {db} from "../../util";
 export default {
   name: "_id",
   components: {Navigationbar, Titles},
   data(){
     return{
-      customer:{
-        "id": "GIT43LYB5QY",
-        "name": "Rahim W. Shannon",
-        "address": "Apartado núm.: 726, 5004 Augue Calle",
-        "phone": "1-191-454-1886",
-        "age": 56,
-        quotes:[
-          {
-            "id": "STO54ZGZ7MS",
-            "date": "December 27th, 2021",
-            "doctor": "Cairo E. Francis",
-            "details": "id risus quis diam luctus lobortis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos hymenaeos. Mauris ut quam vel sapien imperdiet"
-          },
-          {
-            "id": "UEB64AGQ1LU",
-            "date": "December 15th, 2020",
-            "doctor": "Aristotle Horton",
-            "details": "nisi a odio semper cursus. Integer mollis. Integer tincidunt aliquam arcu. Aliquam ultrices iaculis odio. Nam interdum enim non nisi. Aenean eget metus. In nec orci. Donec nibh. Quisque nonummy"
-          },
-          {
-            "id": "KGE41HIQ8CB",
-            "date": "July 8th, 2020",
-            "doctor": "Rooney Baldwin",
-            "details": "sed turpis nec mauris blandit mattis. Cras eget nisi dictum augue malesuada malesuada. Integer id magna et ipsum cursus vestibulum. Mauris magna. Duis dignissim tempor arcu. Vestibulum ut eros"
-          },
-          {
-            "id": "MXZ10YIM3KD",
-            "date": "June 13th, 2022",
-            "doctor": "Isaac French",
-            "details": "Sed molestie. Sed id risus quis diam luctus lobortis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos hymenaeos. Mauris ut quam"
-          },
-          {
-            "id": "XRQ76KPS2UB",
-            "date": "February 13th, 2021",
-            "doctor": "Yardley E. Campbell",
-            "details": "quam. Curabitur vel lectus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus."
-          },
-        ]
-      },
+      customer: {},
     }
   },
   mounted() {
-    console.log(this.$route.params.id)
+    let routeId = this.$route.params.id
+
+    db.collection('customer')
+        .get()
+        .then((r) => r.docs.map((item) => {
+          if ( routeId === item.id ){
+            console.log(item)
+            this.customer = ({
+              id:item.id,
+              name: item.data().name,
+              phone: item.data().phone,
+              age: item.data().age,
+              address: item.data().address,
+            })
+          }
+        }))
+    console.log(this.customer)
   }
 }
 </script>
