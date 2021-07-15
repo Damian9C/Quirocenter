@@ -77,12 +77,14 @@ export default {
     },
 
     generateRange () {
-      let ini = 1, end = 24;
+      let ini = 1, end = 23;
       for ( let i = ini ; i <= end ; i++ ){
         if (i < 10 ) {
           this.hours.push( "0" + i + ":00")
+          this.hours.push( "0" + i + ":30" )
         }else {
-          this.hours.push( i + ":00")
+          this.hours.push( i + ":00" )
+          this.hours.push( i + ":30" )
         }
       }
     },

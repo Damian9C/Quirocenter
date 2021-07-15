@@ -1,5 +1,7 @@
 <template>
   <div>
+    <v-icon size="38" class="back" @click="$router.push(`/customers`)">mdi-arrow-left</v-icon>
+    <v-space></v-space>
     <v-btn
         class="btn"
         color="#2DA4D9"
@@ -692,6 +694,11 @@ export default {
 </script>
 
 <style scoped>
+
+.back{
+  padding-left: 1rem;
+}
+
 .btn{
   margin: 1% 0 0 50%;
   padding-left: 15px;

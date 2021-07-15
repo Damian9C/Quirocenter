@@ -101,7 +101,7 @@
                   locale="es-Es"
               ></v-calendar>
               <v-menu
-                  v-model="selectedOpen"
+                  v-model="selectedOpen "
                   :close-on-content-click="false"
                   :activator="selectedElement"
                   offset-x
@@ -500,20 +500,32 @@ export default {
               color: item.data().color,
               customerName: item.data().customerName,
               customerId: item.data().customerId,
-              timeIni: (new Date(Number(item.data().start.seconds + "000")).getHours() + ":00"),
-              timeEnd: (new Date(Number(item.data().end.seconds + "000")).getHours() + ":00"),
+              timeIni: (this.generateDate(item.data().start.seconds)),
+              timeEnd: ( this.generateDate(item.data().end.seconds)),
               timed: "true",
             });
           }));
+    },
+
+    generateDate(item){
+      let Hour = new Date(Number(item + "000")).getHours();
+      let minuts = new Date(Number(item + "000")).getMinutes();
+      if ( minuts == 0 ){
+        return Hour + ':00';
+      }else{
+       return Hour + ':' + minuts;
+      }
     },
 
     generateRange () {
       let ini = parseInt(this.clock[0].ini), end = parseInt(this.clock[0].end);
       for ( let i = ini ; i <= end ; i++ ){
         if (i < 10 ) {
-          this.hours.push( "0" + i + ":00")
+          this.hours.push( "0" + i + ":00" )
+          this.hours.push( "0" + i + ":30" )
         }else {
-          this.hours.push( i + ":00")
+          this.hours.push( i + ":00" )
+          this.hours.push( i + ":30" )
         }
       }
     },
@@ -568,7 +580,7 @@ export default {
           customerName: item.customerName,
           customerId: item.customerId,
         }).then(()=>this.fetchFirebaseQuotes()).finally(()=> this.updateRange())
-
+        this.selectedOpen = false;
         this.dialogEdit = false;
       }
     },
@@ -593,6 +605,7 @@ export default {
         this.fetchFirebaseQuotes()
       }).finally(()=> this.updateRange())
       this.dialogDelete = false;
+      this.selectedOpen = false;
     },
 
     getHours(){

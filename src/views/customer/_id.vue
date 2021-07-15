@@ -44,6 +44,7 @@
             color="teal"
             dark
             @click="overlay = !overlay"
+            v-if="seeSecretary"
         >
           agregar
         </v-btn>
@@ -62,7 +63,7 @@
             <th class="text-left">
               Detalles
             </th>
-            <th class="text-left">
+            <th v-if="see" class="text-left">
               Acciones
             </th>
           </tr>
@@ -81,6 +82,7 @@
                 dark
                 small
                 @click.prevent="dialogDelete = !dialogDelete; itemSelected = item"
+                v-if="see"
             >
               borrar
             </v-btn></td>
@@ -217,7 +219,8 @@ export default {
       overlay: false,
       dialogDelete: false,
       zIndex: 1,
-
+      see: false,
+      seeSecretary: true,
       nameDoc: '',
       details: '',
       itemSelected:'',
@@ -227,10 +230,23 @@ export default {
       modal: false,
     }
   },
+
   mounted() {
     this.fetchFirebaseId();
   },
+
   methods: {
+
+    isVisible(){
+      let variable = this.$store.state.user
+      console.log(variable)
+      if (variable === 'Administrador' ){
+        this.see = true;
+      }
+      if (variable === 'Asistente'){
+        this.seeSecretary = false;
+      }
+    },
 
     fetchFirebaseId(){
       let routeId = this.$route.params.id
@@ -249,6 +265,7 @@ export default {
               })
             }
           }))
+      this.isVisible();
     },
 
     addCustom(){

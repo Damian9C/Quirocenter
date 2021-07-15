@@ -9,7 +9,7 @@
             class="btn__two"
             color="teal"
             @click="overlay = !overlay"
-            v-show="visible"
+            v-show="see"
         >
           agregar
         </v-btn>
@@ -180,7 +180,6 @@
           <v-btn
               small
               @click="dialogEdit(); userSelected = item"
-              v-show="visible"
           >
             <v-icon>
               mdi-pencil
@@ -189,7 +188,7 @@
           <v-btn
               small
               @click="deleteCustom(); userSelected = item"
-              v-show="visible"
+              v-show="see"
           >
             <v-icon>
               mdi-delete
@@ -232,6 +231,7 @@ export default {
       { text: 'Telefono', value: 'phone' },
       { text: 'Edad', value: 'age' },
       { text: 'Direccion', value: 'address' },
+      { text: 'Fecha de registro', value: 'dataCreated' },
       { text: 'Acciones', value: 'actions', sortable: false },
     ],
     userSelected: {
@@ -239,10 +239,11 @@ export default {
       age: '',
       address: '',
       name: '',
+      created: '',
       quotes: [],
     },
 
-    visible: false,
+    see: false,
   }),
 
   watch: {
@@ -267,6 +268,7 @@ export default {
         age: this.age,
         address: this.address,
         quotes: [],
+        created:new Date(),
       })
           .then(() => this.fetchFirebaseCustomer())
           .catch((error) => {
@@ -295,6 +297,7 @@ export default {
         address: this.direccion,
         name: this.userSelected.name,
         quotes: this.userSelected.quotes,
+        created: this.userSelected.created,
       }).then(()=>this.fetchFirebaseCustomer())
       this.closeEdit()
     },
@@ -309,10 +312,15 @@ export default {
 
     isVisible(){
       let variable = this.$store.state.user
-
-      if (variable === 'Administrador' || variable === 'Asistente'){
-        this.visible = true;
+      console.log(variable)
+      if (variable === 'Administrador' ){
+        this.see = true;
       }
+    },
+
+    dateActulice(item){
+      let Hour = new Date(Number(item + "000"));
+      return `${Hour.toLocaleDateString()} ${Hour.getHours()}:${Hour.getMinutes()}`
     },
 
     fetchFirebaseCustomer(){
@@ -326,8 +334,10 @@ export default {
             age: item.data().age,
             address: item.data().address,
             quotes: item.data().quotes | [],
+            created: item.data().created,
+            dataCreated: this.dateActulice(item.data().created.seconds) ,
           })))
-      this.isVisible()
+      this.isVisible();
     },
   }
 }

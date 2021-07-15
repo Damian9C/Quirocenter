@@ -6,14 +6,6 @@
       <div class="bottons">
         <v-icon class="back" @click="$router.push(`/admin`)">mdi-arrow-left</v-icon>
         <v-spacer></v-spacer>
-        <v-btn
-            class="btn__two"
-            color="teal"
-
-            @click.prevent="overlay = !overlay"
-        >
-          Cambiar Contraseña
-        </v-btn>
       </div>
       <v-simple-table>
         <template v-slot:default>
@@ -43,49 +35,6 @@
         </template>
       </v-simple-table>
 
-      <v-overlay
-          :z-index="zIndex"
-          :value="overlay"
-      >
-        <div class="form__content">
-          <titles principal-title="Cambiar Contraseña"/>
-          <div><br/>
-            <v-text-field
-                label="Contraseña"
-                rounded
-                background-color="#349DB4"
-                dense
-                outlined
-                :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
-                :type="show1 ? 'text' : 'password'"
-                @click:append="show1 = !show1"
-                v-model="pass"
-            ></v-text-field>
-          </div><br/>
-          <div>
-            <v-btn
-                id="botton"
-                color="#349DB4"
-                @click="overlay = false"
-                @click.prevent="changePass()"
-            >
-              cambiar
-            </v-btn>
-          </div>
-          <br>
-          <div>
-            <v-btn
-                class="role__inputsBtn"
-                color="#349DB4"
-                small
-                @click="overlay = false"
-            >
-              cancelar
-            </v-btn>
-          </div>
-        </div>
-      </v-overlay>
-
     </div>
   </div>
 </template>
@@ -99,14 +48,8 @@ export default {
   name: "role",
   components: {Navigationbar, Titles},
   data: () => ({
-    overlay: false,
-    zIndex: 1,
-    dialogDelete: false,
     users: [],
-    show1: false,
     items:['Administrador','Doctor','Asistente'],
-    userSelected: null,
-    pass: "",
   }),
 
   mounted(){
@@ -124,28 +67,6 @@ export default {
     }
   },
 
-  watch: {
-    dialogDelete (val) {
-      val || this.closeDelete()
-    },
-  },
-
-  methods:{
-    changePass(){
-      try {
-        const user = firebase.auth().currentUser;
-        const newPassword = this.pass;
-
-        user.updatePassword(newPassword).then(() => {
-        }).catch((error) => {
-          alert(error)
-        });
-
-      }catch (e) {
-        alert(e)
-      }
-    },
-  }
 }
 </script>
 
