@@ -239,7 +239,6 @@ export default {
 
     isVisible(){
       let variable = this.$store.state.user
-      console.log(variable)
       if (variable === 'Administrador' ){
         this.see = true;
       }
