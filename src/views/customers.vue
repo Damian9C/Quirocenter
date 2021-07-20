@@ -9,7 +9,6 @@
             class="btn__two"
             color="teal"
             @click="overlay = !overlay"
-            v-show="see"
         >
           agregar
         </v-btn>
